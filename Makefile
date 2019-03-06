@@ -30,6 +30,7 @@ INCDIR				:=	$(LIBDIRS:%=%/inc) 	\
 # File Variables
 
 SRCS_RAW			:=	main.c			\
+					foo.c
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 
@@ -55,7 +56,7 @@ all					:	libs $(NAME)
 
 $(NAME)				: 	$(OBJS) $(LIBFILES)
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
-						ar rc $(TESTDIR)/libtest.a $(OBJS)
+						ar rc $(TESTDIR)/libtest.a $(filter-out $(OBJSDIR)/main.o,$(OBJS))
 
 # Make Libs
 
