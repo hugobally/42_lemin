@@ -22,9 +22,9 @@ LIBSPATH			=	..
 
 LIBDIRS				:=	$(LIBSPATH)/libft
 
-INCDIR				:=	$(LIBDIRS:%=%/includes) 	\
+INCDIR				:=	$(LIBDIRS:%=%/inc) 					\
 						../inc						\
-						inc
+						./inc
 
 # File Variables
 
@@ -34,7 +34,7 @@ SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 
 OBJS  				:=	$(SRCS:$(SRCSDIR)/%.c=$(OBJSDIR)/%.o)
 
-DEPENDENCIES		:=	$(OBJS:%.o=%.d)
+DEPENDENCIES			:=	$(OBJS:%.o=%.d)
 
 LIBFILES			:=	$(foreach LIB, $(LIBDIRS), $(LIB)/$(notdir $(LIB)).a)
 
@@ -46,20 +46,20 @@ CFLAGS				+=	-Wall -Werror -Wextra
 
 INCLUDES			:=	$(addprefix -I ,$(INCDIR))
 
-INCLIBS				:=	$(foreach LIB,$(LIBDIRS),-L $(LIB) $(subst lib,-l,$(notdir $(LIB))))
+INCLIBS				:=	$(foreach LIB,$(LIBDIRS),-L $(LIB) $(subst lib,-l,$(notdir $(LIB))))	\
+					-L ./ -ltest
 
 # Main Target
 
 all					:	libs $(NAME)
 
 $(NAME)				: 	$(OBJS) $(LIBFILES)
+						
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
-
-# Make Libs
 
 .PHONY				:	libs
 libs				:
-						@$(foreach LIB, $(LIBDIRS), make -C $(LIB);)
+					make -C ..
 
 # Objs Target
 
