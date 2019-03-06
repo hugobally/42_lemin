@@ -52,5 +52,6 @@ Mkfile.old
 dkms.conf
 
 # Custom ignores
-lem-in
+lem_in
+lem_in_test
 *.sw*
