@@ -18,13 +18,13 @@ SRCSDIR   			=	src
 
 OBJSDIR   			=	obj
 
-TESTDIR				=	tests
+TESTDIR				=	test
 
 LIBSPATH			=	.
 
 LIBDIRS				:=	$(LIBSPATH)/libft
 
-INCDIR				:=	$(LIBDIRS:%=%/includes) 	\
+INCDIR				:=	$(LIBDIRS:%=%/inc) 	\
 						inc
 
 # File Variables
@@ -55,11 +55,13 @@ all					:	libs $(NAME)
 
 $(NAME)				: 	$(OBJS) $(LIBFILES)
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
+						ar rc $(TESTDIR)/libtest.a $(OBJS)
 
 # Make Libs
 
 .PHONY				:	libs
 libs				:
+						git submodule foreach git pull origin master
 						@$(foreach LIB, $(LIBDIRS), make -C $(LIB);)
 
 # Objs Target
