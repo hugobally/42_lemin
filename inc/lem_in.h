@@ -3,6 +3,9 @@
 
 #include <stdint.h>
 
+# define OK 0
+# define KO 1
+
 typedef struct		s_hop
 {
 	int				flow;
