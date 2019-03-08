@@ -14,7 +14,6 @@ void	reset(t_wrap *wrap)
 
 int		main(void)
 {
-
 	/*
 	** VARIABLES
 	*/
@@ -141,6 +140,8 @@ int		main(void)
 	}
 	ft_printf("del list with 1 elem : OK\n");
 	ft_printf("------------------\n");
+
+	flow_test();
 
 	return (0);
 }
