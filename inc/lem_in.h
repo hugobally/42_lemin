@@ -1,4 +1,5 @@
-#ifndef LEM_IN_H # define LEM_IN_H
+#ifndef LEM_IN_H
+# define LEM_IN_H
 
 #include <stdint.h>
 
