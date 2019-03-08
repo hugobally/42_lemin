@@ -61,10 +61,9 @@ typedef struct		s_wrap
 void				add_start(t_wrap *wrap, void *content, t_list **start);
 void				add_end(t_wrap *wrap, void *content,
 								t_list **start, t_list **end);
-void				del_start(t_wrap *wrap, void *content, t_list **start);
-void				del_end(t_wrap *wrap, void *content,
-								t_list **start, t_list **end);
-void				del_all(t_wrap *wrap, void *content, t_list **start);
+void				del_start(t_wrap *wrap, t_list **start);
+void				del_end(t_wrap *wrap, t_list **start, t_list **end);
+void				del_all(t_wrap *wrap, t_list **start);
 void				collector(t_wrap *wrap, uint8_t flag);
 
 #endif
