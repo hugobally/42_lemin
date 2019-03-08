@@ -57,8 +57,9 @@ typedef struct		s_node
 	char			*name;
 	t_vector		coord;
 	struct s_node	**edges;
-	t_list			*gate_data;
+	int				last_visited;
 	t_list			*hops;
+	t_list			*gate_data;
 	int				ant;
 }					t_node;
 
@@ -84,6 +85,7 @@ typedef struct		s_wrap
 	t_list			*input_start;
 	t_list			*input_end;
 	t_graph			*graph;
+	t_list			*path_lst;
 }					t_wrap;
 
 /*
