@@ -12,12 +12,6 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-typedef struct		s_hop
-{
-	int				flow;
-	t_node			*hop_to;
-}					t_hop;
-
 typedef struct		s_gate_data
 {
 	int				flow;
@@ -37,11 +31,17 @@ typedef struct		s_node
 	uint8_t			type;
 	char			*name;
 	t_vector		coord;
-	t_node			**edges;
-	t_list			gate_data;
-	t_list			hops;
+	struct s_node	**edges;
+	t_list			*gate_data;
+	t_list			*hops;
 	int				ant;
 }					t_node;
+
+typedef struct		s_hop
+{
+	int				flow;
+	t_node			*hop_to;
+}					t_hop;
 
 typedef struct		s_graph
 {
