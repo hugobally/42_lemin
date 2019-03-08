@@ -52,7 +52,7 @@ typedef struct		s_graph
 
 typedef struct		s_wrap
 {
-	t_list			*input;
+	t_list			*input_start;
 	t_list			*input_end;
 	t_graph			*graph;
 	int				best_flow;
