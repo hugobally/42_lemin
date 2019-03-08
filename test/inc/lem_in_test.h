@@ -4,4 +4,6 @@
 # include "libft.h"
 # include "lem_in.h"
 
+void		flow_test(void);
+
 #endif
