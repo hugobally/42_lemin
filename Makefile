@@ -6,7 +6,7 @@
 #    By: hbally <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:12:52 by hbally            #+#    #+#              #
-#    Updated: 2019/03/07 16:40:28 by hbally           ###   ########.fr        #
+#    Updated: 2019/03/08 14:01:44 by hbally           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,7 +63,9 @@ $(NAME)				: 	$(OBJS) $(LIBFILES)
 libs				:
 						git submodule init
 						git submodule update
-						git submodule foreach git pull origin master
+						git submodule foreach git fetch origin 
+						git submodule foreach git checkout lem_in 
+						git submodule foreach git pull origin lem_in
 						@$(foreach LIB, $(LIBDIRS), make -C $(LIB);)
 
 # Objs Target
