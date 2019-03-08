@@ -58,6 +58,7 @@ typedef struct		s_wrap
 	int				best_flow;
 }					t_wrap;
 
+int     			ft_read_map(t_wrap *wraper);
 void				add_start(t_wrap *wrap, void *content, t_list **start);
 void				add_end(t_wrap *wrap, void *content,
 								t_list **start, t_list **end);
