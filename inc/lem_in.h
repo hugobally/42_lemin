@@ -6,6 +6,12 @@
 # define OK 0
 # define KO 1
 
+typedef struct		s_list
+{
+	void			*content;
+	struct s_list	*next;
+}					t_list;
+
 typedef struct		s_hop
 {
 	int				flow;
