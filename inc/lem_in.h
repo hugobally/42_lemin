@@ -78,7 +78,7 @@ typedef struct		s_node
 
 typedef struct		s_graph
 {
-	t_node			*nodes;
+	t_node			**nodes;
 	t_node			*source;
 	t_node			*sink;
 	int				flow_max;
@@ -104,7 +104,7 @@ typedef struct		s_wrap
 {
 	t_list			*input_start;
 	t_list			*input_end;
-	t_graph			*graph;
+	t_graph			graph;
 	t_bfs			*bfs_state;
 	t_list			*bfs_output;
 }					t_wrap;
@@ -126,7 +126,7 @@ void				del_all(t_wrap *wrap, t_list **start);
 
 void		flow_create_all(t_wrap *wrap, t_graph *graph);
 void		flow_find_wrapper(t_wrap *wrap, t_graph *graph);
-uint8_t		flow_find_new(t_wrap *wrap, int flow, t_node *source);
+void		flow_find_new(t_wrap *wrap, int flow, t_node *source);
 
 /*
 **	Collector for clean exit
