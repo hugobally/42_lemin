@@ -1,7 +1,7 @@
 #ifndef LEM_IN_H
 # define LEM_IN_H
 
-#include <stdint.h>
+# include <stdint.h>
 
 /*
 ** Macros
@@ -124,9 +124,9 @@ void				del_all(t_wrap *wrap, t_list **start);
 **	Create all possible flows and store them
 */
 
-void		flow_create_all(t_wrap *wrap, t_graph *graph);
-void		flow_find_wrapper(t_wrap *wrap, t_graph *graph);
-void		flow_find_new(t_wrap *wrap, int flow, t_node *source);
+void				flow_create_all(t_wrap *wrap, t_graph *graph);
+void				flow_find_wrapper(t_wrap *wrap, t_graph *graph);
+void				flow_find_new(t_wrap *wrap, int flow, t_node *source);
 
 /*
 **	Collector for clean exit
