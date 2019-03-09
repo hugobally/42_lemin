@@ -9,6 +9,9 @@
 
 # define OK 0
 # define KO 1
+# define START 1
+# define END 2
+# define GATE 3
 
 /*
 ** Generic list structure
@@ -27,6 +30,18 @@ typedef struct		s_list
 **  - vector : node coordinates
 */
 
+typedef struct		s_bfs_data
+{
+	int				last_visited;
+	struct s_node	*parent;
+}					t_bfs_data;
+
+typedef struct		s_hop
+{
+	int				flow;
+	struct s_node	*hop_to;
+}					t_hop;
+
 typedef struct		s_gate_data
 {
 	int				flow;
@@ -41,12 +56,6 @@ typedef struct		s_vector
 	int				y;
 }					t_vector;
 
-typedef struct		s_hop
-{
-	int				flow;
-	struct s_node	*hop_to;
-}					t_hop;
-
 /*
 ** Main Node Component
 */
@@ -55,12 +64,12 @@ typedef struct		s_node
 {
 	uint8_t			type;
 	char			*name;
-	t_vector		coord;
-	struct s_node	**edges;
-	int				last_visited;
-	t_list			*hops;
-	t_list			*gate_data;
 	int				ant;
+	t_vector		coord;
+	t_list			*edges;
+	t_bfs_data		bfs_data;
+	t_list			*hops_data;
+	t_list			*gate_data;
 }					t_node;
 
 /*
@@ -77,6 +86,17 @@ typedef struct		s_graph
 }					t_graph;
 
 /*
+** Breadth-First Search data container
+*/
+
+typedef struct		s_bfs
+{
+	t_list			*level;
+	t_list			*frontier;
+	t_list			*path;
+}					t_bfs;
+
+/*
 ** Container for program data
 */
 
@@ -85,7 +105,8 @@ typedef struct		s_wrap
 	t_list			*input_start;
 	t_list			*input_end;
 	t_graph			*graph;
-	t_list			*path_lst;
+	t_bfs			*bfs_state;
+	t_list			*bfs_output;
 }					t_wrap;
 
 /*
@@ -99,13 +120,13 @@ void				del_start(t_wrap *wrap, t_list **start);
 void				del_end(t_wrap *wrap, t_list **start, t_list **end);
 void				del_all(t_wrap *wrap, t_list **start);
 
-
 /*
 **	Create all possible flows and store them
 */
 
 void		flow_create_all(t_wrap *wrap, t_graph *graph);
-t_list		*flow_find_new(t_wrap *wrap, t_node *source, t_node *sink);
+void		flow_find_wrapper(t_wrap *wrap, t_graph *graph);
+uint8_t		flow_find_new(t_wrap *wrap, int flow, t_node *source);
 
 /*
 **	Collector for clean exit
