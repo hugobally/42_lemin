@@ -68,7 +68,7 @@ typedef struct		s_node
 	t_vector		coord;
 	t_list			*edges;
 	t_bfs_data		bfs_data;
-	t_list			*hops_data;
+	t_list			*hop_data;
 	t_list			*gate_data;
 }					t_node;
 
@@ -127,7 +127,7 @@ void				del_all(t_wrap *wrap, t_list **start);
 void				flow_create_all(t_wrap *wrap, t_graph *graph);
 void				flow_find_wrapper(t_wrap *wrap, t_graph *graph);
 void				flow_find_new(t_wrap *wrap, int flow, t_node *source);
-
+void				flow_update_nodes(t_wrap *wrap, t_list *path, int flow); 
 /*
 **	Collector for clean exit
 */
