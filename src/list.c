@@ -44,11 +44,14 @@ void					del_start(t_wrap *wrap, t_list **start)
 {
 	t_list				*node;
 
-	if (!start || !*start)
+	if (!start)
 		collector(wrap, KO);
-	node = *start;
-	*start = (*start)->next;
-	ft_memdel((void**)&node);
+ 	if (*start)
+	{
+		node = *start;
+		*start = (*start)->next;
+		ft_memdel((void**)&node);
+	}
 }
 
 /*
@@ -59,20 +62,23 @@ void					del_end(t_wrap *wrap, t_list **start, t_list **end)
 {
 	t_list				*node;
 
-	if (!start || !*start || !end)
+	if (!start || !end)
 		collector(wrap, KO);
-	if (!(*start)->next)
+	if (*start)
 	{
-		*start = NULL;
-		*end = NULL;
-	}
-	else
-	{
-		node = *start;
-		while (node->next->next)
-			node = node->next;
-		*end = node;
-		ft_memdel((void**)&(node->next));
+		if (!(*start)->next)
+		{
+			*start = NULL;
+			*end = NULL;
+		}
+		else
+		{
+			node = *start;
+			while (node->next->next)
+				node = node->next;
+			*end = node;
+			ft_memdel((void**)&(node->next));
+		}
 	}
 }
 
@@ -81,7 +87,7 @@ void					del_all(t_wrap *wrap, t_list **start)
 	t_list	*node;
 	t_list	*swap;
 
-	if (!start || !*start)
+	if (!start)
 		collector(wrap, KO);
 	node = *start;
 	while (node)
