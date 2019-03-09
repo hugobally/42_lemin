@@ -7,14 +7,22 @@
 ** (going in the reverse direction in an existing path is allowed)
 */
 
+/*
+** TODO If we're trying to hop but destination a reverse edge
+** 		and a hop is already in place, hop is illegal
+*/
+
+
 static uint8_t		legal_edge(t_node *node, t_node *next_node, int flow)
 {
 	t_list			*hop;
+	t_node			*hop_to;
 
-	hop = node->hops_data;
-
+	hop = node->hop_data;
+	if (hop)
+		hop_to = ((t_hop*)(hop->content))->hop_to;
 	if (next_node->bfs_data.last_visited == flow
-			|| (hop && (t_node*)(hop->content) == next_node))
+			|| (hop && hop_to == next_node))
 		return (0);
 	return (1);
 }
@@ -92,8 +100,6 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 	wrap->bfs_state = &bfs;
 	add_start(wrap, (void*)source, &(bfs.frontier));
 	while (update_level(&(bfs.level), &(bfs.frontier)))
-	{//
-		//ft_printf("1\n");//
 		while (bfs.level)
 		{
 			node = (t_node*)(bfs.level->content);
@@ -111,5 +117,4 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 			}
 			del_start(wrap, &(bfs.level));
 		}
-	}//
 } // |!| 26 Lines
