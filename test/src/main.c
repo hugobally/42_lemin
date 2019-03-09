@@ -1,5 +1,5 @@
-#include "lem_in_test.h"
 #include <stdlib.h>
+#include "lem_in_test.h"
 
 void	print_error(void)
 {
@@ -27,8 +27,9 @@ int		main(void)
 	** LIST ADD START
 	*/
 
-	ft_printf("list add start test\n");
+  	ft_printf("list add start test\n");
 	string = ft_strdup("teststring0");
+	
 	while (i < 10)
 	{
 		add_start(&wrap, (void*)string, &(wrap.input_start));

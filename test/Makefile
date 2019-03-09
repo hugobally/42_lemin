@@ -6,7 +6,7 @@
 #    By: hbally <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:12:52 by hbally            #+#    #+#              #
-#    Updated: 2019/03/08 16:50:59 by hbally           ###   ########.fr        #
+#    Updated: 2019/03/09 15:26:51 by hbally           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ LIBSPATH			=	..
 LIBDIRS				:=	$(LIBSPATH)/libft
 
 INCDIR				:=	$(LIBDIRS:%=%/inc) 					\
-						../inc						\
+						../inc								\
 						./inc
 
 # File Variables
@@ -35,7 +35,7 @@ SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 
 OBJS  				:=	$(SRCS:$(SRCSDIR)/%.c=$(OBJSDIR)/%.o)
 
-DEPENDENCIES			:=	$(OBJS:%.o=%.d)
+DEPENDENCIES		:=	$(OBJS:%.o=%.d)
 
 LIBFILES			:=	$(foreach LIB, $(LIBDIRS), $(LIB)/$(notdir $(LIB)).a)
 
@@ -48,7 +48,7 @@ CFLAGS				+=	-Wall -Werror -Wextra
 INCLUDES			:=	$(addprefix -I ,$(INCDIR))
 
 INCLIBS				:=	$(foreach LIB,$(LIBDIRS),-L $(LIB) $(subst lib,-l,$(notdir $(LIB))))	\
-					-L ./ -ltest
+						-L ./ -ltest
 
 # Main Target
 
@@ -60,7 +60,7 @@ $(NAME)				: 	$(OBJS) $(LIBFILES)
 
 .PHONY				:	libs
 libs				:
-					make -C ..
+						make -C ..
 
 # Objs Target
 
