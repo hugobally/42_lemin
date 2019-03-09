@@ -1,3 +1,4 @@
+#include "libft.h"
 #include "lem_in.h"
 
 static uint8_t		update_level(t_list **level, t_list **frontier)
@@ -9,8 +10,8 @@ static uint8_t		update_level(t_list **level, t_list **frontier)
 	return (1);
 }
 
-static uint8_t		check_node(t_wrap *wrap, int flow,
-									t_node *parent, t_node *node)
+static uint8_t		check_node(t_wrap *wrap, t_node *parent, t_node *node,
+									int flow)
 {
 	node->bfs_data.last_visited = flow;
 	node->bfs_data.parent = parent;
@@ -23,12 +24,14 @@ static uint8_t		check_node(t_wrap *wrap, int flow,
 	return (0);
 }
 
-static uint8_t		legal_edge(t_list *node, t_list *next_node, int flow)
+static uint8_t		legal_edge(t_node *node, t_node *next_node, int flow)
 {
+	t_list			*hop;
+
 	hop = node->hops_data;
 
 	if (next_node->bfs_data.last_visited == flow
-			|| (hop && hop->(t_node*)content == next_node))
+			|| (hop && (t_node*)(hop->content) == next_node))
 		return (0);
 	return (1);
 }
@@ -55,18 +58,19 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 	while (update_level(&(bfs.level), &(bfs.frontier)))
 		while (bfs.level)
 		{
-			node = bfs.level->(t_node*)content;
+			node = (t_node*)(bfs.level->content);
 			edge = node->edges;
 			while (edge)
 			{
-				next_node = edge->(t_node*)content;
+				next_node = (t_node*)(edge->content);
 				if (legal_edge(node, next_node, flow))
-					if (check_node(wrap, node, next_node, flow)
+				{
+					if (check_node(wrap, node, next_node, flow))
 						break;
-					else
-						add_start(wrap, next_node, &(bfs.frontier));
+					add_start(wrap, next_node, &(bfs.frontier));
+				}
 				edge = edge->next;
 			}
 			del_start(wrap, &(bfs.level));
 		}
-}
+} // |!| 26 Lines
