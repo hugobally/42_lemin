@@ -21,7 +21,8 @@ SRCS_RAW			:=	main.c				\
 						list.c				\
 						collector.c			\
 						flow_create_all.c	\
-						flow_find_new.c
+						flow_find_new.c		\
+						flow_update_nodes.c
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 
