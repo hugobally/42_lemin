@@ -1,19 +1,24 @@
 #include <stdlib.h>
 #include "lem_in_test.h"
 
-void	print_error(void)
+static void		test_print_error(void)
 {
 	ft_printf("-----ERROR-----");
 	exit(1);
 }
 
-void	reset(t_wrap *wrap)
+static void		reset_wrap(t_wrap *wrap)
 {
 	ft_bzero((void*)wrap, sizeof(t_wrap));
 }
 
 int		main(void)
 {
+
+	flow_test();
+
+	return (0);
+
 	/*
 	** VARIABLES
 	*/
@@ -29,6 +34,8 @@ int		main(void)
 
   	ft_printf("list add start test\n");
 	string = ft_strdup("teststring0");
+
+	reset_wrap(&wrap);
 	
 	while (i < 10)
 	{
@@ -41,10 +48,13 @@ int		main(void)
 	ft_printf("expected teststring9 > teststring0\n");
 	while (node)
 	{
-		ft_printf("%s\n", (char*)node->content);
+		ft_printf("%s\n", (char*)(node->content));
 		node = node->next;
-	}
-	reset (&wrap);
+		ft_printf("%p\n", node);
+		if (node == NULL)
+			ft_printf("node is null\n");
+    }
+	reset_wrap (&wrap);
 	ft_printf("------------------\n");
 
 	/*
@@ -89,7 +99,7 @@ int		main(void)
 	if (node != NULL)
 	{
 		ft_printf("del list with 1 elem : KO\n");
-		print_error();
+		test_print_error();
 	}
 	ft_printf("del list with 1 elem : OK\n");
 	ft_printf("------------------\n");
@@ -112,7 +122,7 @@ int		main(void)
 	if (node != NULL)
 	{
 		ft_printf("del list with 1 elem : KO\n");
-		print_error();
+		test_print_error();
 	}
 	ft_printf("del list with 1 elem : OK\n");
 	ft_printf("------------------\n");
@@ -137,12 +147,10 @@ int		main(void)
 	if (node != NULL)
 	{
 		ft_printf("del list with 1 elem : KO\n");
-		print_error();
+		test_print_error();
 	}
 	ft_printf("del list with 1 elem : OK\n");
 	ft_printf("------------------\n");
-
-	flow_test();
 
 	return (0);
 }

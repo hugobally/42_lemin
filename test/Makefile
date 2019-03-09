@@ -6,7 +6,7 @@
 #    By: hbally <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:12:52 by hbally            #+#    #+#              #
-#    Updated: 2019/03/09 15:26:51 by hbally           ###   ########.fr        #
+#    Updated: 2019/03/09 19:23:03 by hbally           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ INCLIBS				:=	$(foreach LIB,$(LIBDIRS),-L $(LIB) $(subst lib,-l,$(notdir $(LIB))
 
 all					:	libs $(NAME)
 
-$(NAME)				: 	$(OBJS) $(LIBFILES)
+$(NAME)				: 	libtest.a $(OBJS) $(LIBFILES)
 						
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
 

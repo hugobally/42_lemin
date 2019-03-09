@@ -4,6 +4,9 @@ void		flow_test(void)
 {
 	t_wrap wrap;
 	t_node *nodes;
+//	t_list *node;
+	
+//	t_hop *hop;
 	
 	ft_bzero(&wrap, sizeof(t_wrap));
 	ft_bzero(&(wrap.graph), sizeof(t_graph));
@@ -36,10 +39,46 @@ void		flow_test(void)
 	add_start(&wrap, (void*)(&(nodes[6])), &(nodes[5].edges));
 	add_start(&wrap, (void*)(&(nodes[7])), &(nodes[6].edges));
 
+	flow_create_all(&wrap, &(wrap.graph));
+	
+	//node = wrap.graph.source->hop_data;
+	//while (node)
+//	{
+//		print_path(((t_hop*)(node->content))->hop_to);
+//		node = node->next;
+//	}
+
+	/*
+	** Simulate already existing flow
+	*/
+
+	/*
+	hop = (t_hop*)ft_memalloc(sizeof(t_hop));
+	hop->hop_to = &(nodes[2]);
+	add_start(&wrap, (void*)hop, &(nodes[0].hop_data));
+
+	hop = (t_hop*)ft_memalloc(sizeof(t_hop));
+	hop->hop_to = &(nodes[4]);
+	add_start(&wrap, (void*)hop, &(nodes[2].hop_data));
+
+	hop = (t_hop*)ft_memalloc(sizeof(t_hop));
+	hop->hop_to = &(nodes[7]);
+	add_start(&wrap, (void*)hop, &(nodes[4].hop_data));
+	*/
+
+	/*
+	** flow_find_new unit test
+	*/
+
+	/*
 	flow_find_new(&wrap, 1, &(nodes[0]));
 
-	if (wrap.bfs_output)
-		ft_printf("Ouput\n");
-	else
-		ft_printf("No Output\n");
+	node = wrap.bfs_output;
+	while (node)
+	{
+		ft_printf("%s\n", ((t_node*)(node->content))->name);
+		node = node->next;
+	}
+	*/
+
 }
