@@ -11,7 +11,6 @@
 # define KO 1
 # define START 1
 # define END 2
-# define GATE 3
 
 /*
 ** Generic list structure
@@ -45,7 +44,7 @@ typedef struct		s_hop
 typedef struct		s_gate_data
 {
 	int				flow;
-	int				path_length;
+	int				path_len;
 	int				crowding;
 	int				to_send;
 }					t_gate_data;
@@ -128,6 +127,8 @@ void				flow_create_all(t_wrap *wrap, t_graph *graph);
 void				flow_find_wrapper(t_wrap *wrap, t_graph *graph);
 void				flow_find_new(t_wrap *wrap, int flow, t_node *source);
 void				flow_update_nodes(t_wrap *wrap, t_list *path, int flow); 
+void				flow_update_gates(t_wrap *wrap, t_node *source, int flow);
+
 /*
 **	Collector for clean exit
 */

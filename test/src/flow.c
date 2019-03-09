@@ -5,7 +5,6 @@ void		flow_test(void)
 	t_wrap wrap;
 	t_node *nodes;
 //	t_list *node;
-	
 //	t_hop *hop;
 	
 	ft_bzero(&wrap, sizeof(t_wrap));

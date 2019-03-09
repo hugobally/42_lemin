@@ -1,6 +1,12 @@
 #include "libft.h"
 #include "lem_in.h"
 
+/*
+** For each node on BFS output path, add or remove hop.
+** TODO If no hop is removed, only the gate data for the newly created path
+** needs to be updated. If hop is removed, store which path it belongs to.
+*/
+
 void			flow_update_nodes(t_wrap *wrap, t_list *path, int flow)
 {
 	t_list		*list_elem;
