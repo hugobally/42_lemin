@@ -63,7 +63,7 @@ typedef struct		s_node
 {
 	uint8_t			type;
 	char			*name;
-	int				ant;
+	int				guest;
 	t_vector		coord;
 	t_list			*edges;
 	t_bfs_data		bfs_data;
@@ -80,6 +80,7 @@ typedef struct		s_graph
 	t_node			**nodes;
 	t_node			*source;
 	t_node			*sink;
+	int				source_capacity;
 	int				flow_max;
 	int				flow_best;
 }					t_graph;
