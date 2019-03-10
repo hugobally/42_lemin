@@ -32,6 +32,7 @@ typedef struct		s_list
 typedef struct		s_bfs_data
 {
 	int				last_visited;
+	int				residual;
 	struct s_node	*parent;
 }					t_bfs_data;
 
