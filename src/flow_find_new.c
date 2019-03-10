@@ -8,22 +8,55 @@
 */
 
 /*
-** TODO If we're trying to hop but destination a reverse edge
-** 		and a hop is already in place, hop is illegal
+** TODO
+** - if edge is a dead-end don't add it
+** - extract hop_get 
+** - handle node already visited when backtracking
 */
 
+static t_node		*hop_get(t_list	*hop_list)
+{
+	if (hop_list)
+		return (((t_hop*)(hop_list->content))->hop_to);
+	return (NULL);
+}
 
-static uint8_t		legal_edge(t_node *node, t_node *next_node, int flow)
+static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 {
 	t_list			*hop;
-	t_node			*hop_to;
+	t_list			*next_hop;
 
-	hop = node->hop_data;
-	if (hop)
-		hop_to = ((t_hop*)(hop->content))->hop_to;
-	if (next_node->bfs_data.last_visited == flow
-			|| (hop && hop_to == next_node))
+	hop = parent->hop_data;
+	next_hop = child->hop_data;
+
+	ft_printf("parent : %s | child : %s | ", parent->name, child->name);
+	if (child->bfs_data.last_visited == flow)
+	{
+		ft_printf("illegal : next node has been visited\n");
 		return (0);
+	}
+	if (parent->bfs_data.residual == flow)
+	{
+		ft_printf("legal : residual hop\n");
+		return (1);
+	}
+	if (hop_get(next_hop) == parent)
+	{
+		ft_printf("legal : backtracking hop\n");
+		child->bfs_data.residual = flow;
+		return (1);
+	}
+	if (hop_get(hop))
+	{
+		if (parent->type == START && !(hop_get(next_hop)))
+		{
+			ft_printf("legal : parent is source\n");
+			return (1);
+		}
+		ft_printf("illegal : existing non-null hop\n");
+		return (0);
+	}
+	ft_printf("legal\n");
 	return (1);
 }
 
@@ -50,14 +83,14 @@ static void			build_path(t_wrap *wrap, t_node *start)
 	wrap->bfs_output = path;
 }
 
-static uint8_t		check_node(t_wrap *wrap, t_node *parent, t_node *node,
+static uint8_t		check_node(t_wrap *wrap, t_node *parent, t_node *child,
 									int flow)
 {
-	node->bfs_data.last_visited = flow;
-	node->bfs_data.parent = parent;
-	if (node->type == END)
+	child->bfs_data.last_visited = flow;
+	child->bfs_data.parent = parent;
+	if (child->type == END)
 	{
-		build_path(wrap, node);
+		build_path(wrap, child);
 		del_all(wrap, &(wrap->bfs_state->level));
 		del_all(wrap, &(wrap->bfs_state->frontier));
 		return (1);
@@ -93,8 +126,8 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 {
 	t_bfs			bfs;
 	t_list			*edge;
-	t_node			*node;
-	t_node			*next_node;
+	t_node			*parent;
+	t_node			*child;
 
 	ft_bzero(&bfs, sizeof(t_bfs));
 	wrap->bfs_state = &bfs;
@@ -102,16 +135,16 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 	while (update_level(&(bfs.level), &(bfs.frontier)))
 		while (bfs.level)
 		{
-			node = (t_node*)(bfs.level->content);
-			edge = node->edges;
+			parent = (t_node*)(bfs.level->content);
+			edge = parent->edges;
 			while (edge)
 			{
-				next_node = (t_node*)(edge->content);
-				if (legal_edge(node, next_node, flow))
+				child = (t_node*)(edge->content);
+				if (legal_edge(parent, child, flow))
 				{
-					if (check_node(wrap, node, next_node, flow))
+					if (check_node(wrap, parent, child, flow))
 						break;
-					add_start(wrap, next_node, &(bfs.frontier));
+					add_start(wrap, child, &(bfs.frontier));
 				}
 				edge = edge->next;
 			}
