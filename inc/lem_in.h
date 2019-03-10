@@ -36,19 +36,19 @@ typedef struct		s_bfs_data
 	struct s_node	*parent;
 }					t_bfs_data;
 
-typedef struct		s_hop
-{
-	int				flow;
-	struct s_node	*hop_to;
-}					t_hop;
-
 typedef struct		s_gate_data
 {
 	int				flow;
 	int				path_len;
 	int				crowding;
-	int				to_send;
+	int				sent;
 }					t_gate_data;
+
+typedef struct		s_hop
+{
+	int				flow;
+	struct s_node	*hop_to;
+}					t_hop;
 
 typedef struct		s_vector
 {
@@ -84,6 +84,7 @@ typedef struct		s_graph
 	int				source_capacity;
 	int				flow_max;
 	int				flow_best;
+	int				flow_best_cost;
 }					t_graph;
 
 /*
@@ -130,6 +131,14 @@ void				flow_find_wrapper(t_wrap *wrap, t_graph *graph);
 void				flow_find_new(t_wrap *wrap, int flow, t_node *source);
 void				flow_update_nodes(t_wrap *wrap, t_list *path, int flow); 
 void				flow_update_gates(t_wrap *wrap, t_node *source, int flow);
+
+/*
+** 	Cost calculation for a given flow
+*/
+
+t_gate_data 		*get_data(t_list *data_list, int flow);
+t_node				*get_best_gate(t_node *source, int flow);
+void				flow_simulate(t_graph *graph, t_node *source, int flow);
 
 /*
 **	Collector for clean exit
