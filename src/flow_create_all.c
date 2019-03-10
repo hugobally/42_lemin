@@ -31,6 +31,7 @@ void			flow_find_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	graph->source->bfs_data.last_visited = graph->flow_max;
 	flow_find_new(wrap, graph->flow_max, graph->source);
+	wrap->bfs_state = NULL;
 }
 
 /*
