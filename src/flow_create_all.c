@@ -43,7 +43,6 @@ void			flow_find_wrapper(t_wrap *wrap, t_graph *graph)
 
 void			flow_create_all(t_wrap *wrap, t_graph *graph)
 {
-
 	t_list *node;
 	graph->flow_max = 1;
 	flow_find_wrapper(wrap, graph);
