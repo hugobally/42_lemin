@@ -52,8 +52,6 @@ void			flow_create_all(t_wrap *wrap, t_graph *graph)
 		flow_update_nodes(wrap, wrap->bfs_output, graph->flow_max);
 		flow_update_gates(wrap, graph->source, graph->flow_max);
 		del_all(wrap, &(wrap->bfs_output));
-//		flow_find_score(wrap, graph, graph->source, graph->flow_max);
-
 		//
 		//DEBUG 
 		node = graph->source->hop_data;
@@ -66,7 +64,6 @@ void			flow_create_all(t_wrap *wrap, t_graph *graph)
 		ft_printf("-----\n");
 		//END DEBUG
 		//
-
 		graph->flow_max++;
 		flow_find_wrapper(wrap, graph);
 	}

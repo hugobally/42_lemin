@@ -8,7 +8,8 @@
 */
 
 /*
-** TODO if edge is a dead-end don't add it
+** TODO If we're trying to hop but destination a reverse edge
+** 		and a hop is already in place, hop is illegal
 */
 
 
@@ -20,21 +21,9 @@ static uint8_t		legal_edge(t_node *node, t_node *next_node, int flow)
 	hop = node->hop_data;
 	if (hop)
 		hop_to = ((t_hop*)(hop->content))->hop_to;
-
-	//Check if vertex has already been touched in this BFS
-	if (next_node->bfs_data.last_visited == flow)
+	if (next_node->bfs_data.last_visited == flow
+			|| (hop && hop_to == next_node))
 		return (0);
-	//Check if edge not in path
-	if (hop && hop_to != NULL)
-	{
-		//If edge is part of path but we're going back up the path,
-		//it's a legal move
-		if (next_node->hop_data
-				&& ((t_hop*)(next_node->hop_data->content))->hop_to == node)
-			return (1);
-		else
-			return (0);
-	}
 	return (1);
 }
 
