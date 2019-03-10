@@ -12,6 +12,8 @@
 ** - if edge is a dead-end don't add it
 ** - extract hop_get 
 ** - handle node already visited when backtracking
+** - there should be no reverse edges between source and gates and 
+** 	 between sink and sink parents
 */
 
 static t_node		*hop_get(t_list	*hop_list)
