@@ -16,12 +16,29 @@
 ** 	 between sink and sink parents
 */
 
-static t_node		*hop_get(t_list	*hop_list)
+/*
+** Helpers
+*/
+
+uint8_t				update_level(t_list **level, t_list **frontier)
+{
+	*level = *frontier;
+	*frontier = NULL;
+	if (*level == NULL)
+		return (0);
+	return (1);
+}
+
+t_node				*hop_get(t_list	*hop_list)
 {
 	if (hop_list)
 		return (((t_hop*)(hop_list->content))->hop_to);
 	return (NULL);
 }
+
+/*
+** Check for legal edge
+*/
 
 static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 {
@@ -98,19 +115,6 @@ static uint8_t		check_node(t_wrap *wrap, t_node *parent, t_node *child,
 		return (1);
 	}
 	return (0);
-}
-
-/*
-** End of loop reset
-*/
-
-static uint8_t		update_level(t_list **level, t_list **frontier)
-{
-	*level = *frontier;
-	*frontier = NULL;
-	if (*level == NULL)
-		return (0);
-	return (1);
 }
 
 /*
