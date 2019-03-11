@@ -23,6 +23,16 @@ typedef struct		s_list
 }					t_list;
 
 /*
+** Hash Table
+*/
+
+typedef struct		s_table
+{
+	t_list			**tab;
+	int				size;
+}					t_table;
+
+/*
 ** Sub-Components for node structure
 **	- gate_data : information about gate nodes
 **	- hop : next node in path for a given flow id
@@ -78,7 +88,8 @@ typedef struct		s_node
 
 typedef struct		s_graph
 {
-	t_node			**nodes;
+	t_list			**nodes;
+	int				table_size;
 	t_node			*source;
 	t_node			*sink;
 	int				source_capacity;
@@ -104,9 +115,9 @@ typedef struct		s_bfs
 
 typedef struct		s_wrap
 {
+	t_graph			graph;
 	t_list			*input_start;
 	t_list			*input_end;
-	t_graph			graph;
 	t_bfs			*bfs_state;
 	t_list			*bfs_output;
 }					t_wrap;
