@@ -50,9 +50,12 @@ void			flow_create_all(t_wrap *wrap, t_graph *graph)
 	{
 		flow_update_nodes(wrap, wrap->bfs_output, graph->flow_max);
 		flow_update_gates(wrap, graph->source, graph->flow_max);
+		flow_simulate(graph, graph->source, graph->flow_max);
 		del_all(wrap, &(wrap->bfs_output));
 		//
 		//DEBUG 
+		ft_printf("------------------------\n");
+		ft_printf("- PATH SET FOR FLOW %d -\n", graph->flow_max);
 		node = graph->source->hop_data;
 		while (node)
 		{
@@ -60,7 +63,7 @@ void			flow_create_all(t_wrap *wrap, t_graph *graph)
 			ft_printf("|| %d\n", ((t_gate_data*)(((t_hop*)(node->content))->hop_to->gate_data->content))->path_len);
 			node = node->next;
 		}
-		ft_printf("-----\n");
+		ft_printf("------------------------\n");
 		//END DEBUG
 		//
 		graph->flow_max++;
