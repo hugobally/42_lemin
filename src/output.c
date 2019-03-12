@@ -22,38 +22,42 @@ t_node				*hop_get_flow(t_list *hop_list, int flow)
 	return (NULL);
 }
 
-void				print_move(int counter, t_node *destination, uint8_t reset)
+void				print_move(int counter, t_node *destination, int flag)
 {
 	static uint8_t	not_at_start;
 
-	if (reset)
+	
+	if (flag == TURN_END)
 	{
-		ft_printf("\n");
+//		ft_printf("\n");
 		not_at_start = 0;
 	}
 	else
 	{
+//		if (not_at_start)
+//			ft_printf("\t");
 		//DEBUG
-		static int previous;
-		int i;
-		if (!not_at_start)
-			for (i = 0 ; i < counter ; i++)
-				ft_printf("\t");
-		if (not_at_start && !(counter == previous + 1))
-		{
-			for (i = 1 ; i < counter - previous ; i++)
-				ft_printf("\t");
-		}
-		previous = counter;
+//		static int previous;
+//		int i;
+//		if (!not_at_start)
+//			for (i = 0 ; i < counter ; i++)
+//				ft_printf("\t");
+//		if (not_at_start && !(counter == previous + 1))
+//		{
+//			for (i = 1 ; i < counter - previous ; i++)
+//				ft_printf("\t");
+//		}
+//		previous = counter;
 		//
-		if (not_at_start)
-			ft_printf("\t");
-		ft_printf("L%d-%s",
-					counter,
-					destination ? destination->name : NULL);
+//		ft_printf("L%d-%s",
+//					counter,
+//					destination ? destination->name : NULL);
+		(void)counter;
+		(void)destination;
 		not_at_start = 1;
 	}
 }
+
 
 uint8_t				send(t_wrap *wrap, t_node *node, t_bfs *sim, int counter)
 {
@@ -67,6 +71,8 @@ uint8_t				send(t_wrap *wrap, t_node *node, t_bfs *sim, int counter)
 		if (node->type != END)
 			add_end(wrap, (void*)node, &(sim->frontier), &(sim->frontier_end));
 		print_move(counter, node, 0);
+		if (wrap->viz_option)
+			move_to_file(wrap, wrap->graph.source, node, counter);
 		return (1);
 	}
 	return (0);
@@ -87,7 +93,21 @@ void				push(t_wrap *wrap, int flow, t_bfs *sim)
 		if (dest->type != END)
 			add_end(wrap, (void*)dest, &(sim->frontier), &(sim->frontier_end));
 		print_move(node->guest, dest, 0);
+		if (wrap->viz_option)
+			move_to_file(wrap, node, dest, node->guest);
 		elem = elem->next;
+	}
+}
+
+void				turn_control(t_wrap *wrap, int flag, int last_turn)
+{
+	if (flag == TURN_START && wrap->viz_option)
+		move_to_file(wrap, NULL, NULL, TURN_START);
+	if (flag == TURN_END)
+	{
+		if (wrap->viz_option)
+			move_to_file(wrap, NULL, NULL, TURN_END);
+		print_move(0, NULL, last_turn ? LAST_TURN_END : TURN_END);
 	}
 }
 
@@ -101,8 +121,8 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 	wrap->bfs_state = &sim;
 	counter = 0;
 	while (!counter || update_level(&(sim.level), &(sim.frontier)))
-
 	{
+		turn_control(wrap, TURN_START, 0);
 		edge = source->edges;
 		push(wrap, flow, &sim);
 		while (edge && remain)
@@ -114,6 +134,6 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 			}
 			edge = edge->next;
 		}
-		print_move(0, NULL, 1);
+		turn_control(wrap, TURN_END, sim.frontier != NULL);
 	}
 }

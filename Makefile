@@ -26,7 +26,8 @@ SRCS_RAW			:=	main.c				\
 						flow_update_gates.c	\
 						flow_simulate.c		\
 						output.c			\
-						output_to_js.c
+						graph_to_file.c		\
+						move_to_file.c
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 

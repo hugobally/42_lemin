@@ -7,7 +7,7 @@ var nodes_data = [
 	{"name": "E", "x": 6, "y": 6, "type": 0},
 	{"name": "F", "x": 7, "y": 7, "type": 0},
 	{"name": "G", "x": 8, "y": 8, "type": 0},
-	{"name": "SINK", "x": 9, "y": 9, "type": 2},
+	{"name": "SINK", "x": 9, "y": 9, "type": 2}
 	//
 ]
 
@@ -31,8 +31,19 @@ var links_data = [
 	{"source": "D", "target": "SINK"}
 ]
 
-/*
 var turns_data = [
-	{}
+	[
+		{"source": "E", "target": "B"},
+		{"source": "B", "target": "D"},
+		{"source": "D", "target": "B"},
+		{"source": "C", "target": "D"},
+		{"source": "D", "target": "C"},
+	],
+	[
+		{"source": "E", "target": "B"},
+		{"source": "B", "target": "D"},
+		{"source": "D", "target": "B"},
+		{"source": "C", "target": "D"},
+		{"source": "D", "target": "C"},
+	]
 ]
-*/

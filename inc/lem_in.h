@@ -4,13 +4,26 @@
 # include <stdint.h>
 
 /*
-** Macros
+** Macros for error reporting
 */
 
 # define OK 0
 # define KO 1
+
+/*
+** Macros for node types
+*/
+
 # define START 1
 # define END 2
+
+/*
+** Macros for output control
+*/
+
+# define TURN_START -1
+# define TURN_END -2
+# define LAST_TURN_END -3
 
 /*
 ** Generic list structure
@@ -99,17 +112,6 @@ typedef struct		s_bfs
 }					t_bfs;
 
 /*
-** Container for solution data when sending to viz
-*/
-
-typedef struct		s_move
-{
-	int				number;
-	t_node			*source;
-	t_node			target;
-}					t_move;
-
-/*
 ** Container for program data
 */
 
@@ -120,7 +122,8 @@ typedef struct		s_wrap
 	t_list			*input_end;
 	t_bfs			*bfs_state;
 	t_list			*bfs_output;
-	t_list			
+	int				viz_option;
+	int				out_fd;
 }					t_wrap;
 
 /*
@@ -177,5 +180,7 @@ void				collector(t_wrap *wrap, uint8_t flag);
 */
 
 void				graph_to_file(t_wrap *wrap, t_graph *graph);
+void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
+									int	flag);
 
 #endif
