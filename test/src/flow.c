@@ -18,12 +18,9 @@ void		flow_test(void)
 {
 	t_wrap wrap;
 	t_node *nodes;
-//	t_list *node;
-//	t_hop *hop; 
 	ft_bzero(&wrap, sizeof(t_wrap));
 	ft_bzero(&(wrap.graph), sizeof(t_graph));
 	
-
 	/*
 	//Basic split map
 	nodes = (t_node*)(ft_memalloc(sizeof(t_node) * 8));
@@ -84,6 +81,7 @@ void		flow_test(void)
 	add_start(&wrap, (void*)(&(nodes[8])), &(nodes[6].edges));
 	add_start(&wrap, (void*)(&(nodes[6])), &(nodes[8].edges));
 	add_start(&wrap, (void*)(&(nodes[7])), &(nodes[8].edges));
+	wrap.graph.nodes = nodes;
 
 	/*
 	//Crossing paths
@@ -128,7 +126,9 @@ void		flow_test(void)
 	ft_printf("best flow : %d | line count : %d\n", wrap.graph.flow_best, wrap.graph.flow_best_cost);
 	ft_printf("\n");
 
+	viz(&wrap);
 	output(&wrap, &(nodes[0]), wrap.graph.flow_best, wrap.graph.source_capacity);
+
 	//node = wrap.graph.source->hop_data;
 	//while (node)
 //	{

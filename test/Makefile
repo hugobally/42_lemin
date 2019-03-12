@@ -6,7 +6,7 @@
 #    By: hbally <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/01/15 17:12:52 by hbally            #+#    #+#              #
-#    Updated: 2019/03/09 19:23:03 by hbally           ###   ########.fr        #
+#    Updated: 2019/03/12 19:29:21 by hbally           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,8 @@ INCDIR				:=	$(LIBDIRS:%=%/inc) 					\
 # File Variables
 
 SRCS_RAW			:=	main.c			\
-						flow.c
+						flow.c			\
+						viz.c
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 
