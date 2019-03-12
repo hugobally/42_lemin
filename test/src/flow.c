@@ -1,4 +1,5 @@
 #include "lem_in_test.h"
+#include <stdio.h>
 
 void		print_gatedata(t_node *node, int flow)
 {
@@ -126,7 +127,10 @@ void		flow_test(void)
 	ft_printf("best flow : %d | line count : %d\n", wrap.graph.flow_best, wrap.graph.flow_best_cost);
 	ft_printf("\n");
 
-	viz(&wrap);
+	wrap.viz_option = 1;
+	graph_to_file(&wrap, &(wrap.graph));
+	ft_printf("fd : %d\n", wrap.out_fd);
+	getchar();
 	output(&wrap, &(nodes[0]), wrap.graph.flow_best, wrap.graph.source_capacity);
 
 	//node = wrap.graph.source->hop_data;
