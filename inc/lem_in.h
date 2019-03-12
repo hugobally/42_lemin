@@ -78,7 +78,7 @@ typedef struct		s_node
 
 typedef struct		s_graph
 {
-	t_node			**nodes;
+	t_node			*nodes;
 	t_node			*source;
 	t_node			*sink;
 	int				source_capacity;
@@ -99,16 +99,28 @@ typedef struct		s_bfs
 }					t_bfs;
 
 /*
+** Container for solution data when sending to viz
+*/
+
+typedef struct		s_move
+{
+	int				number;
+	t_node			*source;
+	t_node			target;
+}					t_move;
+
+/*
 ** Container for program data
 */
 
 typedef struct		s_wrap
 {
+	t_graph			graph;
 	t_list			*input_start;
 	t_list			*input_end;
-	t_graph			graph;
 	t_bfs			*bfs_state;
 	t_list			*bfs_output;
+	t_list			
 }					t_wrap;
 
 /*
@@ -159,5 +171,11 @@ t_node				*hop_get_flow(t_list *hop_list, int flow);
 */
 
 void				collector(t_wrap *wrap, uint8_t flag);
+
+/*
+** Viz functions
+*/
+
+void				graph_to_file(t_wrap *wrap, t_graph *graph);
 
 #endif
