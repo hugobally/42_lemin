@@ -24,7 +24,11 @@ SRCS_RAW			:=	main.c				\
 						flow_find_new.c		\
 						flow_update_nodes.c	\
 						flow_update_gates.c	\
-						flow_simulate.c
+						flow_simulate.c		\
+						ft_read_map.c       \
+						ft_make_graph.c     \
+						ft_basic_read.c     \
+					
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 

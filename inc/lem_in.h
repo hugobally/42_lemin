@@ -2,6 +2,7 @@
 # define LEM_IN_H
 
 # include <stdint.h>
+# include <stdlib.h>
 
 /*
 ** Macros
@@ -122,7 +123,23 @@ typedef struct		s_wrap
 	t_list			*bfs_output;
 }					t_wrap;
 
-int     			ft_read_map(t_wrap *wraper);
+/*
+**	Parsing
+*/
+
+int     			ft_read_map(t_wrap *wraper, t_graph *graph);
+void	    		ft_make_tab(int size, t_wrap *wraper, t_graph *graph);
+void        		ft_get_coord(char *str, t_node **node);
+void	     		ft_init_graph(t_wrap *wraper, t_table *table, t_graph *graph);
+void        		ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type);
+int         		ft_make_graph(t_wrap *wraper, int size, t_graph *graph);
+int     			ft_nbr_size(int nbr);
+int     			ft_ants(char *line, t_wrap *wraper);
+unsigned long       hash(unsigned char *str);
+int     			ft_is_node(char *line, t_wrap *wraper);
+int     			ft_is_link(char *line, t_wrap *wraper);
+int                 ft_is_comment(char *str);
+
 
 /*
 **	List Creation/Deletion
