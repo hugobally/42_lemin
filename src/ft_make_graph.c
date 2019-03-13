@@ -28,14 +28,6 @@ void        ft_get_coord(char *str, t_node **node)
     (*node)->coord = coord;
 }
 
-void        ft_insert_in_tab(t_wrap *wraper, t_graph *graph, int index, t_node *new_node)
-{
-    t_list **tab;
-
-    tab = graph->nodes;
-    add_start(wraper, new_node, &tab[index]);
-}
-
 void        ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type)
 {
     t_node *new_node;
@@ -46,23 +38,28 @@ void        ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type)
         collector(wraper, KO);
     new_node->type = type;
     ft_get_coord(str, &new_node);
-    index = hash((unsigned char *)str) % graph->table_size;
+    index = hash((unsigned char *)new_node->name) % graph->table_size;
     ft_insert_in_tab(wraper, graph, index, new_node);
 }
 
-//void        ft_add_link(t_wrap *wraper, char *str, t_graph *graph)
-//{
-//}
+void        ft_add_link(t_wrap *wraper, char *str, t_graph *graph)
+{
+    char    *room_1;
+    char    *room_2;
+
+    ft_get_edges(&room_1, &room_2, str, wraper);
+    if (!(ft_add_edges(room_1, room_2, wraper, graph)))
+        collector(wraper, KO);
+    if (!(ft_add_edges(room_2, room_1, wraper, graph)))
+        collector(wraper, KO);
+}
 
 int         ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
 {
-    int i;
-    t_list **tab;
-    t_node *node;
-    t_list *input;
-    t_list *list;
-    char *str;
-    int flag;
+    int     i;
+    t_list  *input;
+    int     flag;
+    char    *str;
 
     i = 0;
     input = wraper->input_start;
@@ -79,32 +76,11 @@ int         ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
             ft_make_node(wraper, input->content, graph, flag);
             flag = 0;
         }
-        //else if (ft_is_link(wraper, input->content))
-        //    ft_add_link(wraper, input->content, graph);
+        else if (ft_is_link(input->content, wraper))
+            ft_add_link(wraper, input->content, graph);
         input = input->next;
         i++;
     }
-    tab = graph->nodes;
-    i = 0;
-    while (i < size)
-    {
-        if (tab[i] && tab[i] != NULL && tab[i]->content && tab[i]->content != NULL)
-        {
-            list = tab[i];
-            while (list != NULL)
-            {
-                node = list->content;
-                if (node->name != NULL && node && node->name)
-                {
-                    str = node->name;
-                    if (str && str != NULL)
-                        ft_printf("tab[%d] : %s type %d", i, str, node->type);
-                }
-                list = list->next;
-            }
-            ft_printf("\n");
-        }
-        i++;
-    }
+    wraper->graph = *graph; 
     return(0);
 }

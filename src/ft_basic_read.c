@@ -24,10 +24,7 @@ int                 ft_ants(char *line, t_wrap *wraper)
     x = ft_atoi(line);
     new_len = ft_nbr_size(x);
     if ((x > 2147483647 || x < -2147483648) || (len != new_len))
-    {
-        ft_printf("Error\n");
         collector(wraper, KO);
-    }
     return(x);
 }
 
@@ -51,4 +48,12 @@ int                 ft_is_comment(char *str)
     else if (ft_strcmp(str, "##end") == 0)
         flag = 2;
     return(flag);
+}
+
+void        ft_insert_in_tab(t_wrap *wraper, t_graph *graph, int index, t_node *new_node)
+{
+    t_list **tab;
+
+    tab = graph->nodes;
+    add_start(wraper, new_node, &tab[index]);
 }

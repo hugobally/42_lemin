@@ -28,6 +28,7 @@ SRCS_RAW			:=	main.c				\
 						ft_read_map.c       \
 						ft_make_graph.c     \
 						ft_basic_read.c     \
+						ft_get_edges.c		\
 					
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)

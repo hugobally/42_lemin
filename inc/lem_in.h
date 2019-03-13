@@ -139,7 +139,10 @@ unsigned long       hash(unsigned char *str);
 int     			ft_is_node(char *line, t_wrap *wraper);
 int     			ft_is_link(char *line, t_wrap *wraper);
 int                 ft_is_comment(char *str);
-
+void        		ft_get_edges(char **room_1, char **room_2, char *str, t_wrap *wraper);
+int         		ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *graph);
+void       			ft_insert_in_tab(t_wrap *wraper, t_graph *graph, int index, t_node *new_node);
+void        		ft_print_hash_tab(t_graph *graph, int full);
 
 /*
 **	List Creation/Deletion
