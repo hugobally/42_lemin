@@ -158,6 +158,7 @@ void        		ft_get_edges(char **room_1, char **room_2, char *str, t_wrap *wrap
 int         		ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *graph);
 void       			ft_insert_in_tab(t_wrap *wraper, t_graph *graph, int index, t_node *new_node);
 void        		ft_print_hash_tab(t_graph *graph, int full);
+t_node      		*ft_get_hashed(char *str, t_wrap *wraper, t_graph *graph);
 
 /*
 **	List Creation/Deletion
