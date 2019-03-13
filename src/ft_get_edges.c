@@ -15,14 +15,14 @@ void        ft_get_edges(char **room_1, char **room_2, char *str, t_wrap *wraper
         collector(wraper, KO);
 }
 
-int         ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *graph)
+t_node      *ft_get_hashed(char *str, t_wrap *wraper, t_graph *graph)
 {
-    int     index;
-    t_list  **tab;
-    t_list  *lst;
-    t_node  *node;
+    t_list **tab;
+    t_list *lst;
+    t_node *node;
+    int index;
 
-    index = hash((unsigned char *)room_1) % graph->table_size;
+    index = hash((unsigned char *)str) % graph->table_size;
     tab = graph->nodes;
     lst = tab[index];
     if (!lst || lst == NULL)
@@ -32,15 +32,27 @@ int         ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *gr
         while (lst != NULL)
         {
             node = lst->content;
-            if (ft_strcmp(node->name, room_1) == 0)
-            {
-                add_start(wraper, room_2, &node->edges);
-                return (1);
-            }
+            if (ft_strcmp(node->name, str) == 0)
+                return(node);
             lst = lst->next;
         }
     }
-    return (0);
+    collector(wraper, KO);
+    return (NULL);
+}
+
+int         ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *graph)
+{
+    t_node *node;
+    t_node *edge;
+
+    if (!(node = ft_get_hashed(room_1, wraper, graph)))
+        collector(wraper, KO);
+    if (!(edge = ft_get_hashed(room_2, wraper, graph)))
+        collector(wraper, KO);
+    if (edge->type != 1)
+        add_start(wraper, edge, &node->edges);
+    return (1);
 }
 
 void        ft_print_hash_tab(t_graph *graph, int full)
@@ -80,9 +92,10 @@ void        ft_print_hash_tab(t_graph *graph, int full)
                         ft_printf("edges[%d] :", i);
                         while (edges != NULL)
                         {
+                            node = edges->content;
                             if (full == 2)
                                 ft_printf("edges[%d] :", i);
-                            ft_printf(" %s | ", edges->content);
+                            ft_printf(" %s | ", node->name);
                             if (full == 2)
                                 ft_printf("\n");
                             edges = edges->next;
