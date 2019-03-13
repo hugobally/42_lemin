@@ -54,6 +54,13 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 		ft_printf("illegal : next node has been visited\n");
 		return (0);
 	}
+	//DEBUG : if possible edges going to start or from end should not exist
+	if (child->type == START || parent->type == END)
+	{
+		ft_printf("illegal : child is start or parent is end\n");
+		return (0);
+	}
+	//
 	if (parent->bfs_data.residual == flow)
 	{
 		ft_printf("legal : residual hop\n");
