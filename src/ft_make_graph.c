@@ -40,6 +40,10 @@ void        ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type)
     ft_get_coord(str, &new_node);
     index = hash((unsigned char *)new_node->name) % graph->table_size;
     ft_insert_in_tab(wraper, graph, index, new_node);
+	if (type == START)
+		graph->source = new_node;
+	if (type == END)
+		graph->sink = new_node;
 }
 
 void        ft_add_link(t_wrap *wraper, char *str, t_graph *graph)
