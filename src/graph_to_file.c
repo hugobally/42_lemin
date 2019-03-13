@@ -1,5 +1,6 @@
 #include <fcntl.h>
 #include "lem_in.h"
+#include "libft.h"
 
 int					create_file(t_wrap *wrap, char *path)
 {
@@ -13,41 +14,70 @@ int					create_file(t_wrap *wrap, char *path)
 	return (1);
 }
 
-/*
-void				write_wrapper(t_wrap *wrap, char *buffer, int printf_ret)
+void				nodes_to_file(int fd, t_list *start)
 {
-	int				write_ret;
+	t_list			*elem;
+	t_node			*node;
 
-	if (printf_ret == -1)
-		collector(wrap, KO);
-	write_ret = write(wrap->output_fd, line, ft_strlen(line));
-	if (line)
-		ft_memdel((void**)&line);
-	if (write_ret == -1)
-		collector(wrap, KO);
-}
-*/
-
-//
-//void				nodes_to_file(int fd, t_wrap *wrap,
-//									t_graph *graph, t_nodes **nodes)
-//{
-//	int				size;// use graph->size
-//
-//	size = 9;
-//	if (nodes)
-//	{
-//		ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
-//	}
-//}
-
-void				graph_to_file(t_wrap *wrap, __attribute__((unused)) t_graph *graph)
-{
-	if (create_file(wrap, "viz/data_test.js")
-			|| create_file(wrap, "data_test.js"))
+	elem = start;
+	while (elem)
 	{
-//		nodes_to_file(wrap->out_fd, wrap, graph->nodes);
-//		edges_to_file(wrap->out_fd, wrap, graph->nodes);
+		node = (t_node*)(elem->content);
+		ft_dprintf(fd, "\t{\"name\": \"%s\", \"type\": %d},\n",
+						node->name, node->type);
+		elem = elem->next;
+	}
+}
+
+void				edges_to_file(int fd, t_list *start)
+{
+	t_list			*elem;
+	t_node			*node;
+	t_list			*edge;
+
+	elem = start;
+	while (elem)
+	{
+		node = (t_node*)(elem->content);
+		edge = node->edges;
+		while (edge)
+		{
+			ft_dprintf(fd, "\t{\"source\": \"%s\", \"target\": \"%s\"},\n",
+							node->name, ((t_node*)(edge->content))->name);
+			edge = edge->next;
+		}
+		elem = elem->next;
+	}
+}
+
+void			parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
+									void (*output)(int, t_list*))
+{
+	int				i;
+	int				table_size;
+
+	if (!nodes)
+		collector(wrap, KO);
+	table_size = graph->table_size;
+	i = 0;
+	while (i < table_size)
+	{
+		output(wrap->out_fd, nodes[i]);
+		i++;
+	}
+}
+
+void				graph_to_file(t_wrap *wrap, t_graph *graph)
+{
+	if (create_file(wrap, "viz/data.js")
+			|| create_file(wrap, "data.js"))
+	{
+		ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
+		parse_table(wrap, graph, graph->nodes, &nodes_to_file);
+		ft_dprintf(wrap->out_fd, "]\n\n");
+		ft_dprintf(wrap->out_fd, "var links_data = [\n");
+		parse_table(wrap, graph, graph->nodes, &edges_to_file);
+		ft_dprintf(wrap->out_fd, "]\n\n");
 	}
 	else
 		collector(wrap, KO);
