@@ -31,7 +31,7 @@ var link_force =  d3.forceLink(links_data)
                         .id(function(d) { return d.name; });            
          
 var charge_force = d3.forceManyBody()
-    .strength(-100);  // Default : -100
+    .strength(-50);  // Default : -100
     
 var center_force = d3.forceCenter(width / 2, height / 2);  
 
