@@ -25,18 +25,17 @@ t_node				*hop_get_flow(t_list *hop_list, int flow)
 void				print_move(int counter, t_node *destination, int flag)
 {
 	static uint8_t	not_at_start;
-
 	
 	if (flag == TURN_END)
 	{
-//		ft_printf("\n");
+		ft_printf("\n");
 		not_at_start = 0;
 	}
 	else
 	{
-//		if (not_at_start)
-//			ft_printf("\t");
-		//DEBUG
+		if (not_at_start)
+			ft_printf(" ");
+//  		//DEBUG
 //		static int previous;
 //		int i;
 //		if (!not_at_start)
@@ -48,10 +47,10 @@ void				print_move(int counter, t_node *destination, int flag)
 //				ft_printf("\t");
 //		}
 //		previous = counter;
-		//
-//		ft_printf("L%d-%s",
-//					counter,
-//					destination ? destination->name : NULL);
+  		//
+		ft_printf("L%d-%s",
+					counter,
+					destination ? destination->name : NULL);
 		(void)counter;
 		(void)destination;
 		not_at_start = 1;
@@ -116,24 +115,29 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 	t_bfs			sim;
 	t_list			*edge;
 	int				counter;
+//	int				debug_turn_counter = 1;//
 
 	ft_bzero((void*)&sim, sizeof(t_bfs));
 	wrap->bfs_state = &sim;
 	counter = 0;
 	while (!counter || update_level(&(sim.level), &(sim.frontier)))
 	{
-		turn_control(wrap, TURN_START, 0);
+//		turn_control(wrap, TURN_START, 0);
+	
+//		ft_printf("Turn %d\n", debug_turn_counter++);
+//
 		edge = source->edges;
 		push(wrap, flow, &sim);
 		while (edge && remain)
 		{
-			if (send(wrap, (t_node*)(edge->content), &sim, counter))
+			if (send(wrap, (t_node*)(edge->content), &sim, counter + 1))
 			{
 				counter++;
 				remain--;
 			}
 			edge = edge->next;
 		}
-		turn_control(wrap, TURN_END, sim.frontier != NULL);
+//		turn_control(wrap, TURN_END, sim.frontier != NULL);
+		print_move(0, NULL, TURN_END);
 	}
 }
