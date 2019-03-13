@@ -1,0 +1,1 @@
+maps/generator --big-superposition > maps/hard ; echo me ; ./lem-in < maps/hard | grep Turn | tail -1 | cut -d   -f 2 ; echo best ; grep required maps/hard | tail -1 | cut -d   -f 8 ; echo --
