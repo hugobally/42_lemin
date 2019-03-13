@@ -28,26 +28,26 @@ void				write_wrapper(t_wrap *wrap, char *buffer, int printf_ret)
 }
 */
 
-void				nodes_to_file(int fd, t_wrap *wrap,
-									t_graph *graph, t_nodes **nodes)
-{
-	int				size;// use graph->size
+//
+//void				nodes_to_file(int fd, t_wrap *wrap,
+//									t_graph *graph, t_nodes **nodes)
+//{
+//	int				size;// use graph->size
+//
+//	size = 9;
+//	if (nodes)
+//	{
+//		ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
+//	}
+//}
 
-	size = 9;
-	if (nodes)
-	{
-		ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
-	}
-	
-}
-
-void				graph_to_file(t_wrap *wrap, t_graph *graph)
+void				graph_to_file(t_wrap *wrap, __attribute__((unused)) t_graph *graph)
 {
-	if (create_file(&wrap_test, "viz/data_test.js")
-			|| create_file(&wrap_test, "data_test.js"))
+	if (create_file(wrap, "viz/data_test.js")
+			|| create_file(wrap, "data_test.js"))
 	{
-		nodes_to_file(wrap->out_fd, wrap, graph->nodes);
-		edges_to_file(wrap->out_fd, wrap, graph->nodes);
+//		nodes_to_file(wrap->out_fd, wrap, graph->nodes);
+//		edges_to_file(wrap->out_fd, wrap, graph->nodes);
 	}
 	else
 		collector(wrap, KO);
