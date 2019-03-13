@@ -1,20 +1,18 @@
 #include <fcntl.h>
 #include "lem_in.h"
 
-/*
 int					create_file(t_wrap *wrap, char *path)
 {
 	int				fd;
 	
-	fd = open(path, O_RDWR | O_CREAT | O_TRUNC, 0644);
+	fd = open(path, O_RDWR | O_CREAT | O_TRUNC | O_SYMLINK, S_IRUSR | S_IWUSR);
 	if (fd == -1)
-		 collector(wrap, KO);
-	wrap->out_fd = fd;
+		 return (0);
+	if (wrap)
+		wrap->out_fd = fd;
 	return (1);
 }
-*/
 
-#include <stdio.h> //DEBUG ONLY
 /*
 void				write_wrapper(t_wrap *wrap, char *buffer, int printf_ret)
 {
@@ -30,19 +28,26 @@ void				write_wrapper(t_wrap *wrap, char *buffer, int printf_ret)
 }
 */
 
+void				nodes_to_file(int fd, t_wrap *wrap,
+									t_graph *graph, t_nodes **nodes)
+{
+	int				size;// use graph->size
+
+	size = 9;
+	if (nodes)
+	{
+		ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
+	}
+	
+}
 
 void				graph_to_file(t_wrap *wrap, t_graph *graph)
 {
-	int				fd;
-
-	(void)graph;
-	if ((fd = open("viz/data_test.js", O_RDWR | O_CREAT | O_TRUNC, 0644)) != -1)
+	if (create_file(&wrap_test, "viz/data_test.js")
+			|| create_file(&wrap_test, "data_test.js"))
 	{
-		printf("fd is %d\n", fd);
-		getchar();
-		wrap->out_fd = fd;
-//		nodes_to_file(fd, wrap, graph->nodes);
-//		edges_to_file(fd, wrap, graph->nodes);
+		nodes_to_file(wrap->out_fd, wrap, graph->nodes);
+		edges_to_file(wrap->out_fd, wrap, graph->nodes);
 	}
 	else
 		collector(wrap, KO);
