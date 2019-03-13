@@ -216,5 +216,10 @@ void				collector(t_wrap *wrap, uint8_t flag);
 void				graph_to_file(t_wrap *wrap, t_graph *graph);
 void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 									int	flag);
+void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
+									void (*output)(int, t_list*));
+void				edges_to_file(int fd, t_list *start);
+void				nodes_to_file(int fd, t_list *start);
+int					create_file(t_wrap *wrap, char *path);
 
 #endif
