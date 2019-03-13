@@ -2,6 +2,7 @@
 # define LEM_IN_H
 
 # include <stdint.h>
+# include <stdlib.h>
 
 /*
 ** Macros for error reporting
@@ -34,6 +35,16 @@ typedef struct		s_list
 	void			*content;
 	struct s_list	*next;
 }					t_list;
+
+/*
+** Hash Table
+*/
+
+typedef struct		s_table
+{
+	t_list			**tab;
+	int				size;
+}					t_table;
 
 /*
 ** Sub-Components for node structure
@@ -91,7 +102,8 @@ typedef struct		s_node
 
 typedef struct		s_graph
 {
-	t_node			*nodes;
+	t_list			**nodes;
+	int				table_size;
 	t_node			*source;
 	t_node			*sink;
 	int				source_capacity;
@@ -125,6 +137,27 @@ typedef struct		s_wrap
 	int				viz_option;
 	int				out_fd;
 }					t_wrap;
+
+/*
+**	Parsing
+*/
+
+int     			ft_read_map(t_wrap *wraper, t_graph *graph);
+void	    		ft_make_tab(int size, t_wrap *wraper, t_graph *graph);
+void        		ft_get_coord(char *str, t_node **node);
+void	     		ft_init_graph(t_wrap *wraper, t_table *table, t_graph *graph);
+void        		ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type);
+int         		ft_make_graph(t_wrap *wraper, int size, t_graph *graph);
+int     			ft_nbr_size(int nbr);
+int     			ft_ants(char *line, t_wrap *wraper);
+unsigned long       hash(unsigned char *str);
+int     			ft_is_node(char *line, t_wrap *wraper);
+int     			ft_is_link(char *line, t_wrap *wraper);
+int                 ft_is_comment(char *str);
+void        		ft_get_edges(char **room_1, char **room_2, char *str, t_wrap *wraper);
+int         		ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *graph);
+void       			ft_insert_in_tab(t_wrap *wraper, t_graph *graph, int index, t_node *new_node);
+void        		ft_print_hash_tab(t_graph *graph, int full);
 
 /*
 **	List Creation/Deletion
