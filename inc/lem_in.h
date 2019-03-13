@@ -100,14 +100,14 @@ typedef struct		s_graph
 }					t_graph;
 
 /*
-** Breadth-First Search data container
+** Breadth-First Search / Simulation data containers
 */
 
 typedef struct		s_bfs
 {
 	t_list			*level;
 	t_list			*frontier;
-	t_list			*path;
+	t_list			*frontier_end;
 }					t_bfs;
 
 /*
@@ -172,6 +172,20 @@ void				flow_update_gates(t_wrap *wrap, t_node *source, int flow);
 t_gate_data 		*get_data(t_list *data_list, int flow);
 t_node				*get_best_gate(t_node *source, int flow);
 void				flow_simulate(t_graph *graph, t_node *source, int flow);
+
+/*
+** Output
+*/
+
+void				output(t_wrap *wrap, t_node *source, int flow, int remain);
+
+/*
+** Helpers
+*/
+
+uint8_t				update_level(t_list **level, t_list **frontier);
+t_node				*hop_get(t_list	*hop_list);
+t_node				*hop_get_flow(t_list *hop_list, int flow);
 
 /*
 **	Collector for clean exit

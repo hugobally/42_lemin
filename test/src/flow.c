@@ -23,7 +23,6 @@ void		flow_test(void)
 	ft_bzero(&wrap, sizeof(t_wrap));
 	ft_bzero(&(wrap.graph), sizeof(t_graph));
 	
-	wrap.graph.source_capacity = 10;
 
 	/*
 	//Basic split map
@@ -116,15 +115,20 @@ void		flow_test(void)
 
 	flow_create_all(&wrap, &(wrap.graph));
 	
-	print_gatedata(&(nodes[1]), 1);
-	print_gatedata(&(nodes[2]), 1);
-	print_gatedata(&(nodes[1]), 2);
-	print_gatedata(&(nodes[2]), 2);
+//	print_gatedata(&(nodes[1]), 1);
+//	print_gatedata(&(nodes[2]), 1);
+//	print_gatedata(&(nodes[1]), 2);
+//	print_gatedata(&(nodes[2]), 2);
 
+	// flow_simulate unit test
+	wrap.graph.source_capacity = 10;
 	flow_simulate(&wrap.graph, &(nodes[0]), 1);
 	ft_printf("best flow : %d | line count : %d\n", wrap.graph.flow_best, wrap.graph.flow_best_cost);
 	flow_simulate(&wrap.graph, &(nodes[0]), 2);
 	ft_printf("best flow : %d | line count : %d\n", wrap.graph.flow_best, wrap.graph.flow_best_cost);
+	ft_printf("\n");
+
+	output(&wrap, &(nodes[0]), wrap.graph.flow_best, wrap.graph.source_capacity);
 	//node = wrap.graph.source->hop_data;
 	//while (node)
 //	{
