@@ -68,7 +68,7 @@ var node = g.append("g")
         .data(nodes_data)
         .enter()
         .append("circle")
-        .attr("r", d => (radius + ((d.type == "1") * radius)))
+        .attr("r", d => (radius + ((d.type != "0") * radius)))
         .attr("fill", circleColour);
  
 // Emphasize start and end
@@ -95,7 +95,7 @@ zoom_handler(svg);
 
 function circleColour(d){
 	if (d.type == 1){
-		return "red";
+		return "blue";
 	}
 	else if (d.type == 2){
 		return "red";
@@ -108,7 +108,7 @@ function circleColour(d){
 // Function to choose the line colour and thickness 
 
 function linkColour(d){
-		return "beige";
+		return "gray";
 }
 
 // Drag functions [d is current node]

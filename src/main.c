@@ -42,7 +42,7 @@ int			main(void)
 		if (!create_file(&wrap, "viz/graph_data.js"))
 			collector(&wrap, KO);
 		graph_to_file(&wrap, &(wrap.graph));
-		viz_launch();
+//		viz_launch();
 		close(wrap.out_fd);
 	}
 	else

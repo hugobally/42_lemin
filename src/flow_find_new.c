@@ -27,14 +27,14 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 	hop = parent->hop_data;
 	next_hop = child->hop_data;
 
-	if (child->bfs_data.last_visited == flow
+	if (child->last_visited == flow
 			|| child->type == START || parent->type == END)
 		return (0);
-	if (parent->bfs_data.residual == flow)
+	if (parent->residual == flow)
 		return (1);
 	if (hop_get(next_hop) == parent)
 	{
-		child->bfs_data.residual = flow;
+		child->residual = flow;
 		return (1);
 	}
 	if (hop_get(hop))
@@ -53,12 +53,12 @@ static void			check_node(t_wrap *wrap, t_node *parent, t_node *child,
 		add_start(wrap, (void*)parent, &(wrap->bfs_output)); 
 	else
 	{
-		child->bfs_data.last_visited = flow;
-		if (child->bfs_data.residual == flow)
-			child->bfs_data.value = -1;
+		child->last_visited = flow;
+		child->parent = parent;
+		if (child->residual == flow)
+			child->value = -1;
 		else
-			child->bfs_data.value = 1;
-		child->bfs_data.parent = parent;
+			child->value = 1;
 	}
 }
 
@@ -86,6 +86,7 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 	while (update_level(&(bfs.level), &(bfs.frontier)))
 		while (bfs.level)
 		{
+//			ft_printf("oopsie\n");
 			parent = (t_node*)(bfs.level->content);
 			edge = parent->edges;
 			while (edge)
