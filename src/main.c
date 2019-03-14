@@ -17,20 +17,20 @@ void		printinput(t_list *input)
 
 void		output_wrapper(t_wrap *wrap, t_graph *graph)
 {
-	printinput(wrap->input_start);
-	if (wrap->viz_option || 1)//rmv 1
-	{
-		if (!create_file(wrap, "viz/moves_data.js"))
-			collector(wrap, KO);
-		output(wrap, graph->source, graph->flow_best, graph->source_capacity);
-		close(wrap->out_fd);
-		if (!create_file(wrap, "viz/graph_data.js"))
-			collector(wrap, KO);
-		graph_to_file(wrap, graph);
-		close(wrap->out_fd);
-	}
-	else
-		output(wrap, graph->source, graph->flow_best, graph->source_capacity);
+//	printinput(wrap->input_start);
+//	if (wrap->viz_option || 1)//rmv 1
+//	{
+//		if (!create_file(wrap, "viz/moves_data.js"))
+//			collector(wrap, KO);
+//		output(wrap, graph->source, graph->flow_best, graph->source_capacity);
+//		close(wrap->out_fd);
+//		if (!create_file(wrap, "viz/graph_data.js"))
+//			collector(wrap, KO);
+//		graph_to_file(wrap, graph);
+//		close(wrap->out_fd);
+//	}
+//	else
+	output(wrap, graph->source, graph->flow_best, graph->source_capacity);
 }
 
 int			main(void)
