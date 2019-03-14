@@ -49,8 +49,7 @@ int         ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *gr
         collector(wraper, DONE);
     if (!(edge = ft_get_hashed(room_2, graph)) || edge == NULL)
         collector(wraper, DONE);
-    if (edge->type != 1)
-        add_start(wraper, edge, &node->edges);
+	add_start(wraper, edge, &node->edges);
     return (1);
 }
 
