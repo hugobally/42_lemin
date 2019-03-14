@@ -54,14 +54,6 @@ typedef struct		s_table
 **  - vector : node coordinates
 */
 
-typedef struct		s_bfs_data
-{
-	int				last_visited;
-	int				residual;
-	int8_t			value;
-	struct s_node	*parent;
-}					t_bfs_data;
-
 typedef struct		s_gate_data
 {
 	int				flow;
@@ -93,9 +85,12 @@ typedef struct		s_node
 	int				guest;
 	t_vector		coord;
 	t_list			*edges;
-	t_bfs_data		bfs_data;
 	t_list			*hop_data;
 	t_list			*gate_data;
+	int				last_visited;
+	int				residual;
+	struct s_node	*parent;
+	int8_t			value;
 }					t_node;
 
 /*
