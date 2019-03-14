@@ -37,13 +37,13 @@ int			main(void)
 	printinput(wrap.input_start);
 	if (wrap.viz_option || 1)//rmv 1
 	{
-		if (!create_file(wrap, "viz/moves_data.js"))
+		if (!create_file(&wrap, "viz/moves_data.js"))
 			collector(&wrap, KO);
 		output(&wrap, wrap.graph.source,
 						wrap.graph.flow_best,
 						wrap.graph.source_capacity);
 		close(wrap.out_fd);
-		if (!create_file(wrap, "viz/graph_data.js"))
+		if (!create_file(&wrap, "viz/graph_data.js"))
 			collector(&wrap, KO);
 		graph_to_file(&wrap, &(wrap.graph));
 		close(wrap.out_fd);
