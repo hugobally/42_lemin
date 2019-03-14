@@ -25,9 +25,7 @@ int			main(void)
 
 // INPUT
 	ft_read_map(&wrap, &graph);
-	//ft_print_hash_tab(&(wrap.graph), 1);
-
-// SOLVE
+	//ft_print_hash_tab(&(graph), 1);
 	flow_create_all(&wrap, &(wrap.graph));
 
 // VIZ PREP

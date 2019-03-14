@@ -39,6 +39,8 @@ int     ft_is_node(char *line, t_wrap *wraper)
     tiret = 0;
     while (line[i])
     {
+        if (line[0] ==  'L')
+            collector(wraper, KO);
         if (line[i] == ' ')
             count++;
         if (line[i] == '-')
@@ -47,7 +49,7 @@ int     ft_is_node(char *line, t_wrap *wraper)
     }
     if (count == 2 && tiret == 0)
         return (1);
-    else if (count > 2 && line[0] != '#')
+    else if (((tiret > 0 && count == 2) || (count != 2 && count != 0)) && line[0] != '#')
         collector(wraper, KO);
     return (0);
 }
@@ -70,7 +72,7 @@ int     ft_is_link(char *line, t_wrap *wraper)
     if (tiret == 1)
         return (1);
     else if (tiret > 1)
-        collector(wraper, KO);
+        collector(wraper, DONE);
     return (0);
 }
 
@@ -88,6 +90,8 @@ int     ft_read_standard(t_wrap *wraper)
     start = NULL;
     while ((ret = get_next_line(0, &line)) && ret > 0)
     {
+        if (ft_strcmp(line, "") == 0)
+            collector(wraper, KO);
         add_end(wraper, line, &start, &wraper->input_end);
         if (i == 0)
             i = ft_count_nodes(line, &nodes);
@@ -102,5 +106,7 @@ int     ft_read_map(t_wrap *wraper, t_graph *graph)
 
     size = ft_read_standard(wraper);
     ft_make_graph(wraper, size, graph);
-    return(0);
+    if (graph->source == NULL || graph->sink == NULL)
+        collector(wraper, KO);
+    return (0);
 }
