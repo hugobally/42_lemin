@@ -49,15 +49,17 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 static void			check_node(t_wrap *wrap, t_node *parent, t_node *child,
 									int flow)
 {
-	child->bfs_data.last_visited = flow;
-	if (child->bfs_data.residual == flow)
-		child->bfs_data.value = -1;
-	else
-		child->bfs_data.value = 1;
 	if (child->type == END)
 		add_start(wrap, (void*)parent, &(wrap->bfs_output)); 
 	else
+	{
+		child->bfs_data.last_visited = flow;
+		if (child->bfs_data.residual == flow)
+			child->bfs_data.value = -1;
+		else
+			child->bfs_data.value = 1;
 		child->bfs_data.parent = parent;
+	}
 }
 
 /*
