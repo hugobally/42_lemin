@@ -34,22 +34,22 @@ int			main(void)
 
 // VIZ PREP
 
-	if (wrap.viz_option || 1)//rmv 1
-		if (!create_file(wrap, "viz/data.js"))
-			create_file(wrap, "data.js");
-
-// OUTPUT
-
 	printinput(wrap.input_start);
-	output(&wrap, wrap.graph.source, wrap.graph.flow_best, wrap.graph.source_capacity);
-
-// VIZ
-
-	if ((wrap.viz_option || 1) && wrap.out_fd > 0)//rmv 1
-		graph_to_file(&wrap, &(wrap.graph));
-
-	if (wrap.out_fd > 0)//put in collector
+	if (wrap.viz_option || 1)//rmv 1
+	{
+		if (!create_file(wrap, "viz/moves_data.js"))
+			collector(&wrap, KO);
+		output(&wrap, wrap.graph.source,
+						wrap.graph.flow_best,
+						wrap.graph.source_capacity);
 		close(wrap.out_fd);
-
-	return (0);
+		if (!create_file(wrap, "viz/graph_data.js"))
+			collector(&wrap, KO);
+		graph_to_file(&wrap, &(wrap.graph));
+		close(wrap.out_fd);
+	}
+	else
+		output(&wrap, wrap.graph.source,
+						wrap.graph.flow_best,
+						wrap.graph.source_capacity);
 }
