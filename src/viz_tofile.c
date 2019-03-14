@@ -14,41 +14,6 @@ int					create_file(t_wrap *wrap, char *path)
 	return (1);
 }
 
-void				nodes_to_file(int fd, t_list *start)
-{
-	t_list			*elem;
-	t_node			*node;
-
-	elem = start;
-	while (elem)
-	{
-		node = (t_node*)(elem->content);
-		ft_dprintf(fd, "\t{\"name\": \"%s\", \"type\": %d},\n",
-						node->name, node->type);
-		elem = elem->next;
-	}
-}
-
-void				edges_to_file(int fd, t_list *start)
-{
-	t_list			*elem;
-	t_node			*node;
-	t_list			*edge;
-
-	elem = start;
-	while (elem)
-	{
-		node = (t_node*)(elem->content);
-		edge = node->edges;
-		while (edge)
-		{
-			ft_dprintf(fd, "\t{\"source\": \"%s\", \"target\": \"%s\"},\n",
-							node->name, ((t_node*)(edge->content))->name);
-			edge = edge->next;
-		}
-		elem = elem->next;
-	}
-}
 
 void			parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 									void (*output)(int, t_list*))
