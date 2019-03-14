@@ -18,7 +18,8 @@ INCDIR				:=	$(LIBDIRS:%=%/inc) 	\
 # File Variables
 
 SRCS_RAW			:=	main.c						\
-						list.c						\
+						list_add.c					\
+						list_del.c					\
 						collector.c					\
 						flow_create_all.c			\
 						flow_find_new.c				\
