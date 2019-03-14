@@ -14,8 +14,12 @@ int					create_file(t_wrap *wrap, char *path)
 	return (1);
 }
 
+/*
+** Generic function to parse hash table
+*/
+
 void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
-									void (*output)(int, t_list*))
+									void (*output)(t_wrap*, int, t_list*))
 {
 	int				i;
 	int				table_size;
@@ -26,28 +30,61 @@ void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 	i = 0;
 	while (i < table_size)
 	{
-		output(wrap->out_fd, nodes[i]);
+		output(wrap, wrap->out_fd, nodes[i]);
 		i++;
 	}
 }
 
-void				delete_duplicate(__attribute__((unused)) int fd,
+/*
+** Removes reverse edges to reduce the load on viz
+*/
+
+static uint8_t		find_reverse_edge(t_node *parent, t_node *child)
+{
+	t_list			*edge;
+
+	edge = child->edges;
+	while (edge)
+	{
+		if ((t_node*)(edge->content) == parent)
+			return (1);
+		edge = edge->next;
+	}
+	return (0);
+}
+
+void				delete_duplicate(t_wrap *wrap,
+										__attribute__((unused)) int fd,
 										t_list *start)
 {
 	t_list			*elem;
-	t_node			*node;
+	t_node			*parent;
+	t_node			*child;
+	t_list			*edge;
 
 	elem = start;
 	while (elem)
 	{
-		node = (t_node*)(elem->content);
+		parent = (t_node*)(elem->content);
+		edge = parent->edges;
+		while (edge)
+		{
+			child = (t_node*)(edge->content);
+			if (find_reverse_edge(parent, child))
+				del_one(wrap, edge, &(parent->edges));
+			edge = edge->next;
+		}
 		elem = elem->next;
 	}
 }
 
+/*
+** Outputs lem_in data to .js data file for viz
+*/
+
 void				graph_to_file(t_wrap *wrap, t_graph *graph)
 {
-//	parse_table(wrap, graph, graph->nodes, &delete_duplicate);
+	parse_table(wrap, graph, graph->nodes, &delete_duplicate);
 	ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
 	parse_table(wrap, graph, graph->nodes, &nodes_to_file);
 	ft_dprintf(wrap->out_fd, "]\n\n");
