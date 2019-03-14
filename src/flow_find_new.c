@@ -27,41 +27,22 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 	hop = parent->hop_data;
 	next_hop = child->hop_data;
 
-//	ft_printf("parent : %s | child : %s | ", parent->name, child->name);
-	if (child->bfs_data.last_visited == flow)
-	{
-//		ft_printf("illegal : next node has been visited\n");
+	if (child->bfs_data.last_visited == flow
+			|| child->type == START || parent->type == END)
 		return (0);
-	}
-	//DEBUG : if possible edges going to start or from end should not exist
-	if (child->type == START || parent->type == END)
-	{
-//		ft_printf("illegal : child is start or parent is end\n");
-		return (0);
-	}
-	//
 	if (parent->bfs_data.residual == flow)
-	{
-//		ft_printf("legal : residual hop\n");
 		return (1);
-	}
 	if (hop_get(next_hop) == parent)
 	{
-//		ft_printf("legal : backtracking hop\n");
 		child->bfs_data.residual = flow;
 		return (1);
 	}
 	if (hop_get(hop))
 	{
 		if (parent->type == START && !(hop_get(next_hop)))
-		{
-//			ft_printf("legal : parent is source\n");
 			return (1);
-		}
-//		ft_printf("illegal : existing non-null hop\n");
 		return (0);
 	}
-//	ft_printf("legal\n");
 	return (1);
 }
 
@@ -142,4 +123,4 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 			}
 			del_start(wrap, &(bfs.level));
 		}
-} // |!| 26 Lines
+}
