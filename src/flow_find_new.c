@@ -46,42 +46,18 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 	return (1);
 }
 
-/*
-** Updates node data with check_node
-** If sink is found, a path is built from parent pointers and
-** level + frontier are discarded
-*/
-
-static void			build_path(t_wrap *wrap, t_node *start)
-{
-	t_node			*node;
-	t_list			*path;
-
-	path = NULL;
-	node = start;
-	while (node)
-	{
-		add_start(wrap, (void*)node, &path);
-		node = node->bfs_data.parent;
-	}
-	if (wrap->bfs_output)
-		del_all(wrap, &(wrap->bfs_output));
-	wrap->bfs_output = path;
-}
-
-static uint8_t		check_node(t_wrap *wrap, t_node *parent, t_node *child,
+static void			check_node(t_wrap *wrap, t_node *parent, t_node *child,
 									int flow)
 {
 	child->bfs_data.last_visited = flow;
-	child->bfs_data.parent = parent;
+	if (child->bfs_data.residual == flow)
+		child->bfs_data.value = -1;
+	else
+		child->bfs_data.value = 1;
 	if (child->type == END)
-	{
-		build_path(wrap, child);
-		del_all(wrap, &(wrap->bfs_state->level));
-		del_all(wrap, &(wrap->bfs_state->frontier));
-		return (1);
-	}
-	return (0);
+		add_start(wrap, (void*)parent, &(wrap->bfs_output)); 
+	else
+		child->bfs_data.parent = parent;
 }
 
 /*
@@ -115,8 +91,7 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 				child = (t_node*)(edge->content);
 				if (legal_edge(parent, child, flow))
 				{
-					if (check_node(wrap, parent, child, flow))
-						break;
+					check_node(wrap, parent, child, flow);
 					add_start(wrap, child, &(bfs.frontier));
 				}
 				edge = edge->next;
