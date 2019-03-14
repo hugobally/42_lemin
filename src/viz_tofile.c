@@ -19,7 +19,7 @@ int					create_file(t_wrap *wrap, char *path)
 */
 
 void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
-									void (*output)(t_wrap*, int, t_list*))
+									void (*action)(t_wrap*, t_list*))
 {
 	int				i;
 	int				table_size;
@@ -30,7 +30,7 @@ void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 	i = 0;
 	while (i < table_size)
 	{
-		output(wrap, wrap->out_fd, nodes[i]);
+		action(wrap, nodes[i]);
 		i++;
 	}
 }
@@ -53,9 +53,7 @@ static uint8_t		find_reverse_edge(t_node *parent, t_node *child)
 	return (0);
 }
 
-void				delete_duplicate(t_wrap *wrap,
-										__attribute__((unused)) int fd,
-										t_list *start)
+void				delete_duplicate(t_wrap *wrap, t_list *start)
 {
 	t_list			*elem;
 	t_node			*parent;
