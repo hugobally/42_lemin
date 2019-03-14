@@ -34,16 +34,10 @@ void			parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 
 void				graph_to_file(t_wrap *wrap, t_graph *graph)
 {
-	if (create_file(wrap, "viz/data.js")
-			|| create_file(wrap, "data.js"))
-	{
-		ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
-		parse_table(wrap, graph, graph->nodes, &nodes_to_file);
-		ft_dprintf(wrap->out_fd, "]\n\n");
-		ft_dprintf(wrap->out_fd, "var links_data = [\n");
-		parse_table(wrap, graph, graph->nodes, &edges_to_file);
-		ft_dprintf(wrap->out_fd, "]\n\n");
-	}
-	else
-		collector(wrap, KO);
+	ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
+	parse_table(wrap, graph, graph->nodes, &nodes_to_file);
+	ft_dprintf(wrap->out_fd, "]\n\n");
+	ft_dprintf(wrap->out_fd, "var links_data = [\n");
+	parse_table(wrap, graph, graph->nodes, &edges_to_file);
+	ft_dprintf(wrap->out_fd, "]\n\n");
 }
