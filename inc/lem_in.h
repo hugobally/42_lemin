@@ -58,6 +58,7 @@ typedef struct		s_bfs_data
 {
 	int				last_visited;
 	int				residual;
+	int8_t			value;
 	struct s_node	*parent;
 }					t_bfs_data;
 
