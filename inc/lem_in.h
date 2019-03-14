@@ -216,11 +216,11 @@ void				collector(t_wrap *wrap, uint8_t flag);
 
 void				graph_to_file(t_wrap *wrap, t_graph *graph);
 void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
-									void (*output)(t_wrap*, int, t_list*));
+									void (*action)(t_wrap*, t_list*));
 void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 									int	flag);
-void				edges_to_file(t_wrap *wrap, int fd, t_list *start);
-void				nodes_to_file(t_wrap *wrap, int fd, t_list *start);
+void				edges_to_file(t_wrap *wrap, t_list *start);
+void				nodes_to_file(t_wrap *wrap, t_list *start);
 int					create_file(t_wrap *wrap, char *path);
 void				viz_launch(void);
 
