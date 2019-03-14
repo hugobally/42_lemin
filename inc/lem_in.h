@@ -170,6 +170,7 @@ void				add_end(t_wrap *wrap, void *content,
 void				del_start(t_wrap *wrap, t_list **start);
 void				del_end(t_wrap *wrap, t_list **start, t_list **end);
 void				del_all(t_wrap *wrap, t_list **start);
+void				del_one(t_wrap *wrap, t_list *elem, t_list **start);
 
 /*
 **	Create all possible flows and store them
@@ -214,12 +215,12 @@ void				collector(t_wrap *wrap, uint8_t flag);
 */
 
 void				graph_to_file(t_wrap *wrap, t_graph *graph);
+void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
+									void (*output)(t_wrap*, int, t_list*));
 void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 									int	flag);
-void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
-									void (*output)(int, t_list*));
-void				edges_to_file(int fd, t_list *start);
-void				nodes_to_file(int fd, t_list *start);
+void				edges_to_file(t_wrap *wrap, int fd, t_list *start);
+void				nodes_to_file(t_wrap *wrap, int fd, t_list *start);
 int					create_file(t_wrap *wrap, char *path);
 void				viz_launch(void);
 
