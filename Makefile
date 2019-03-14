@@ -28,6 +28,7 @@ SRCS_RAW			:=	main.c						\
 						flow_helpers.c				\
 						viz_tofile.c				\
 						viz_tofile_helpers.c		\
+						viz_launch.c				\
 						ft_read_map.c       		\
 						ft_make_graph.c     		\
 						ft_basic_read.c     		\

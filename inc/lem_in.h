@@ -221,5 +221,6 @@ void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 void				edges_to_file(int fd, t_list *start);
 void				nodes_to_file(int fd, t_list *start);
 int					create_file(t_wrap *wrap, char *path);
+void				viz_launch(void);
 
 #endif
