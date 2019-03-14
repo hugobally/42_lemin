@@ -1,21 +1,11 @@
 #include "libft.h"
 #include "lem_in.h"
 
-void				move_to_file(t_wrap *wrap,
-									t_node *source,
-									t_node *target,
+void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 									int flag)
 {
 	static int		counter;
-	char			*buf;
 
-	buf = NULL;
-	if (source && target)
-		ft_dprintf(wrap->out_fd,
-					"\t\t{\"source\": \"%s\", "
-					"\"target\": \"%s\", "
-					"\"num\": %d},\n",
-					source->name, target->name, flag);
 	if (flag == TURN_START)
 	{
 		if (!counter)
@@ -27,6 +17,12 @@ void				move_to_file(t_wrap *wrap,
 		ft_dprintf(wrap->out_fd, "\t],\n");
 	if (flag == LAST_TURN_END)
 		ft_dprintf(wrap->out_fd, "\t]\n]");
+	if (source && target)
+		ft_dprintf(wrap->out_fd,
+					"\t\t{\"source\": \"%s\", "
+					"\"target\": \"%s\", "
+					"\"num\": %d},\n",
+					source->name, target->name, flag);
 }
 
 void				nodes_to_file(int fd, t_list *start)
