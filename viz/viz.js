@@ -68,10 +68,11 @@ var node = g.append("g")
         .data(nodes_data)
         .enter()
         .append("circle")
-        .attr("r", radius)
+        .attr("r", d => (radius + ((d.type == "1") * radius)))
         .attr("fill", circleColour);
  
- 
+// Emphasize start and end
+
 // Add drag capabilities  
 
 var drag_handler = d3.drag()
