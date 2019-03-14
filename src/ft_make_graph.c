@@ -11,7 +11,7 @@ void     ft_make_tab(int size, t_wrap *wraper, t_graph *graph)
     graph->table_size = size;
 }
 
-void        ft_get_coord(char *str, t_node **node)
+void        ft_get_coord(char *str, t_node **node, t_wrap *wraper)
 {
     int i;
     t_vector coord;
@@ -20,11 +20,11 @@ void        ft_get_coord(char *str, t_node **node)
     while (str[i] != ' ')
         i++;
     i++;
-    coord.x = ft_atoi(&str[i]);
+    coord.x = ft_ants(&str[i], wraper, 0);
     while (str[i] != ' ')
         i++;
     i++;
-    coord.y = ft_atoi(&str[i]);
+    coord.y = ft_ants(&str[i], wraper, 0);
     (*node)->coord = coord;
 }
 
@@ -37,13 +37,17 @@ void        ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type)
     if (!((new_node->name = ft_strcdup(str, ' '))))
         collector(wraper, KO);
     new_node->type = type;
-    ft_get_coord(str, &new_node);
+    ft_get_coord(str, &new_node, wraper);
     index = hash((unsigned char *)new_node->name) % graph->table_size;
     ft_insert_in_tab(wraper, graph, index, new_node);
-	if (type == START)
+	if (type == START && graph->source == NULL)
 		graph->source = new_node;
-	if (type == END)
+    else if (type == START && graph->source != NULL)
+        collector(wraper, KO);
+	if (type == END && graph->sink == NULL)
 		graph->sink = new_node;
+    else if (type == END && graph->sink != NULL)
+        collector(wraper, KO);
 }
 
 void        ft_add_link(t_wrap *wraper, char *str, t_graph *graph)
@@ -72,16 +76,18 @@ int         ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
     {
         str = input->content;
         if (i == 0)
-            graph->source_capacity = ft_ants(input->content, wraper);
+            graph->source_capacity = ft_ants(input->content, wraper, 1);
         if (str[0] == '#')
-            flag = ft_is_comment(str);
+            flag = ft_is_comment(wraper, str, flag);
         if (ft_is_node(input->content, wraper))
         {
             ft_make_node(wraper, input->content, graph, flag);
             flag = 0;
         }
         else if (ft_is_link(input->content, wraper))
+        {
             ft_add_link(wraper, input->content, graph);
+        }
         input = input->next;
         i++;
     }

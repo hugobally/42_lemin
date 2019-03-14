@@ -23,7 +23,7 @@ int			main(void)
 	ft_bzero(&wrap, sizeof(t_wrap));
 	ft_bzero(&graph, sizeof(t_graph));
 	ft_read_map(&wrap, &graph);
-//	ft_print_hash_tab(&(wrap.graph), 1);
+	//ft_print_hash_tab(&(graph), 1);
 	flow_create_all(&wrap, &(wrap.graph));
 	printinput(wrap.input_start);
 	if (wrap.viz_option || 1)//tmp
