@@ -26,7 +26,7 @@ void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 }
 
 void				nodes_to_file(__attribute__((unused)) t_wrap *wrap,
-									int fd, t_list *start)
+									t_list *start)
 {
 	t_list			*elem;
 	t_node			*node;
@@ -35,14 +35,14 @@ void				nodes_to_file(__attribute__((unused)) t_wrap *wrap,
 	while (elem)
 	{
 		node = (t_node*)(elem->content);
-		ft_dprintf(fd, "\t{\"name\": \"%s\", \"type\": %d},\n",
+		ft_dprintf(wrap->out_fd, "\t{\"name\": \"%s\", \"type\": %d},\n",
 						node->name, node->type);
 		elem = elem->next;
 	}
 }
 
 void				edges_to_file(__attribute__((unused)) t_wrap *wrap,
-									int fd, t_list *start)
+									t_list *start)
 {
 	t_list			*elem;
 	t_node			*parent;
@@ -55,7 +55,8 @@ void				edges_to_file(__attribute__((unused)) t_wrap *wrap,
 		edge = parent->edges;
 		while (edge)
 		{
-			ft_dprintf(fd, "\t{\"source\": \"%s\", \"target\": \"%s\"},\n",
+			ft_dprintf(wrap->out_fd,
+							"\t{\"source\": \"%s\", \"target\": \"%s\"},\n",
 							parent->name, ((t_node*)(edge->content))->name);
 			edge = edge->next;
 		}
