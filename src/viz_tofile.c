@@ -14,8 +14,7 @@ int					create_file(t_wrap *wrap, char *path)
 	return (1);
 }
 
-
-void			parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
+void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 									void (*output)(int, t_list*))
 {
 	int				i;
@@ -32,8 +31,23 @@ void			parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 	}
 }
 
+void				delete_duplicate(__attribute__((unused)) int fd,
+										t_list *start)
+{
+	t_list			*elem;
+	t_node			*node;
+
+	elem = start;
+	while (elem)
+	{
+		node = (t_node*)(elem->content);
+		elem = elem->next;
+	}
+}
+
 void				graph_to_file(t_wrap *wrap, t_graph *graph)
 {
+//	parse_table(wrap, graph, graph->nodes, &delete_duplicate);
 	ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
 	parse_table(wrap, graph, graph->nodes, &nodes_to_file);
 	ft_dprintf(wrap->out_fd, "]\n\n");
