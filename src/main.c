@@ -22,14 +22,37 @@ int			main(void)
 
 	ft_bzero(&wrap, sizeof(t_wrap));
 	ft_bzero(&graph, sizeof(t_graph));
+
+// INPUT
 	ft_read_map(&wrap, &graph);
+<<<<<<< HEAD
 	//ft_print_hash_tab(&(graph), 1);
+=======
+	//ft_print_hash_tab(&(wrap.graph), 1);
+
+// SOLVE
+>>>>>>> master
 	flow_create_all(&wrap, &(wrap.graph));
+
+// VIZ PREP
+
 	printinput(wrap.input_start);
-	if (wrap.viz_option || 1)//tmp
-		graph_to_file(&wrap, &(wrap.graph));
-	output(&wrap, wrap.graph.source, wrap.graph.flow_best, wrap.graph.source_capacity);
-	if (wrap.out_fd)//put in collector
+	if (wrap.viz_option || 1)//rmv 1
+	{
+		if (!create_file(&wrap, "viz/moves_data.js"))
+			collector(&wrap, KO);
+		output(&wrap, wrap.graph.source,
+						wrap.graph.flow_best,
+						wrap.graph.source_capacity);
 		close(wrap.out_fd);
-	return (0);
+		if (!create_file(&wrap, "viz/graph_data.js"))
+			collector(&wrap, KO);
+		graph_to_file(&wrap, &(wrap.graph));
+		viz_launch();
+		close(wrap.out_fd);
+	}
+	else
+		output(&wrap, wrap.graph.source,
+						wrap.graph.flow_best,
+						wrap.graph.source_capacity);
 }

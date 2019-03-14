@@ -55,3 +55,6 @@ dkms.conf
 lem-in
 lem_in_test
 *.sw*
+*.map
+graph_data.js
+moves_data.js

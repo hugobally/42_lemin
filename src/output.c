@@ -3,24 +3,7 @@
 
 /*
 ** TODO change name of bfs structure
-** TODO order of ants in output
 */
-
-t_node				*hop_get_flow(t_list *hop_list, int flow)
-{
-	t_list			*elem;
-	t_hop			*hop;
-
-	elem = hop_list;
-	while (elem)
-	{
-		hop = (t_hop*)(elem->content);
-		if (hop->flow <= flow)
-			return (hop->hop_to);
-		elem = elem->next;
-	}
-	return (NULL);
-}
 
 void				print_move(int counter, t_node *destination, int flag)
 {
@@ -35,19 +18,6 @@ void				print_move(int counter, t_node *destination, int flag)
 	{
 		if (not_at_start)
 			ft_printf(" ");
-//  		//DEBUG
-//		static int previous;
-//		int i;
-//		if (!not_at_start)
-//			for (i = 0 ; i < counter ; i++)
-//				ft_printf("\t");
-//		if (not_at_start && !(counter == previous + 1))
-//		{
-//			for (i = 1 ; i < counter - previous ; i++)
-//				ft_printf("\t");
-//		}
-//		previous = counter;
-  		//
 		ft_printf("L%d-%s",
 					counter,
 					destination ? destination->name : NULL);
@@ -116,7 +86,6 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 	t_bfs			sim;
 	t_list			*edge;
 	int				counter;
-	int				debug_turn_counter = 1;//
 
 	ft_bzero((void*)&sim, sizeof(t_bfs));
 	wrap->bfs_state = &sim;
@@ -124,7 +93,6 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 	while (!counter || update_level(&(sim.level), &(sim.frontier)))
 	{
 		turn_control(wrap, TURN_START, 0);
-		ft_printf("Turn %d\n", debug_turn_counter++);//
 		edge = source->edges;
 		push(wrap, flow, &sim);
 		while (edge && remain)

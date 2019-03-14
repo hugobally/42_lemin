@@ -1,20 +1,11 @@
 #include "libft.h"
 #include "lem_in.h"
 
-t_gate_data 		*get_data(t_list *data_list, int flow)
+int					get_cost(t_gate_data *data)
 {
-	t_list			*elem;
-	t_gate_data		*data;
-
-	elem = data_list;
-	while (elem)
-	{
-		data = (t_gate_data*)(elem->content);
-		if (data->flow == flow)
-			return (data);
-		elem = elem->next;
-	}
-	return (NULL);
+	if (data && data->crowding != 0)
+		return (data->path_len + data->crowding - 1);
+	return (0);
 }
 
 t_node				*get_best_gate(t_node *source, int flow)
@@ -38,13 +29,6 @@ t_node				*get_best_gate(t_node *source, int flow)
 		edge = edge->next;
 	}
 	return ((t_node*)best_gate);
-}
-
-int					get_cost(t_gate_data *data)
-{
-	if (data && data->crowding != 0)
-		return (data->path_len + data->crowding - 1);
-	return (0);
 }
 
 void				flow_simulate(t_graph *graph, t_node *source, int flow)

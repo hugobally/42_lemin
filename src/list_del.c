@@ -1,43 +1,24 @@
 #include "libft.h"
 #include "lem_in.h"
 
-void					add_start(t_wrap *wrap, void *content, t_list **start)
-{
-	t_list				*node;
 
-	node = (t_list*)ft_memalloc(sizeof(t_list));
-	if (!node || !start)
-		collector(wrap, KO);
-	node->content = content;
-	if (*start)
-		node->next = *start;
-	*start = node;
-}
-
-void					add_end(t_wrap *wrap, void *content,
-									t_list **start, t_list **end)
+void					del_one(t_wrap *wrap, t_list *elem, t_list **start)
 {
-	t_list				*node;
 	t_list				*parse;
 
-	node = (t_list*)ft_memalloc(sizeof(t_list));
-	if (!node || !start || !end)
-		collector(wrap, KO);
-	node->content = content;
-	if (!*start)
-		*start = node;
-	else
+	if (elem && start && *start)
 	{
-		if (!*end)
+		if (*start == elem)
+			del_start(wrap, start);
+		else
 		{
 			parse = *start;
-			while (parse->next)
+			while (parse->next != elem)
 				parse = parse->next;
-			*end = parse;
+			parse->next = elem->next;
+			ft_memdel((void**)&elem);
 		}
-		(*end)->next = node;
 	}
-	*end = node;
 }
 
 void					del_start(t_wrap *wrap, t_list **start)
@@ -56,6 +37,8 @@ void					del_start(t_wrap *wrap, t_list **start)
 
 /*
 ** |!| del_end parses the whole list every time it is called
+** |!| the 'end' ptr will not be updated by other functions,
+** 		dont store it outside of a del/add loop
 */
 
 void					del_end(t_wrap *wrap, t_list **start, t_list **end)
