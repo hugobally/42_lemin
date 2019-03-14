@@ -79,6 +79,8 @@ int         ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
             graph->source_capacity = ft_ants(input->content, wraper, 1);
         if (str[0] == '#')
             flag = ft_is_comment(wraper, str, flag);
+        if (ft_strcmp(str, "") == 0)
+            collector(wraper, DONE);
         if (ft_is_node(input->content, wraper))
         {
             ft_make_node(wraper, input->content, graph, flag);
