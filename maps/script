@@ -1,1 +1,2 @@
 maps/generator --big-superposition > maps/hard ; echo me ; ./lem-in < maps/hard | grep Turn | tail -1 | cut -d   -f 2 ; echo best ; grep required maps/hard | tail -1 | cut -d   -f 8 ; echo --
+maps/right_maps/generator --big-superposition > maps/temporary.map ; ./lem-in < maps/temporary.map | diff maps/temporary.map - | tail -n +2 | wc -l ; grep Here maps/temporary.map
