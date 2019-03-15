@@ -10,17 +10,19 @@
 void				build_path(t_wrap *wrap, t_graph *graph, t_node *start)
 {
 	t_node			*node;
-	t_list			*output;
+	t_list			**output;
 
-	if (wrap->bfs_output)
-		del_all(wrap, &(wrap->bfs_output));
-	output = wrap->bfs_output;
-	node = graph->sink;
-	node->parent = start;
-	while (node)
+	if (start)
 	{
-		add_start(wrap, (void*)node, &(wrap->bfs_output));
-		node = node->parent;
+		del_all(wrap, &(wrap->bfs_output));
+		output = &(wrap->bfs_output);
+		node = graph->sink;
+		node->parent = start;
+		while (node)
+		{
+			add_start(wrap, (void*)node, output);
+			node = node->parent;
+		}
 	}
 }
 
@@ -33,7 +35,8 @@ int					get_path_value(t_node *path_start)
 	node = path_start;
 	while (node && node->parent)
 	{
-		value += node->value;
+		value += hop_get(node->hop_data) ==node->parent ? -1 : 1;
+//		ft_printf("node %s, value %d\n", node->name, value);
 		node = node->parent;
 	}
 	return (value);
@@ -49,11 +52,12 @@ void				choose_best_path(t_wrap *wrap, t_graph *graph,
 	t_node			*best_path;
 
 	best_value = 0;
+	best_path = NULL;
 	while (candidate)
 	{
 		node = (t_node*)(candidate->content);
 		value = get_path_value(node);
-		ft_printf("found a path for flow %d with value %d\n", graph->flow_max, value);
+//		ft_printf("found a path for flow %d with value %d\n", graph->flow_max, value);
 		if (best_value == 0 || value < best_value)
 		{
 			best_value = value;
@@ -70,6 +74,7 @@ void				choose_best_path(t_wrap *wrap, t_graph *graph,
 
 void				flow_find_wrapper(t_wrap *wrap, t_graph *graph)
 {
+	del_all(wrap, &(wrap->bfs_output));
 	graph->source->last_visited = graph->flow_max;
 	flow_find_new(wrap, graph->flow_max, graph->source);
 	wrap->bfs_state = NULL;
@@ -92,7 +97,6 @@ void				flow_create_all(t_wrap *wrap, t_graph *graph)
 		flow_update_nodes(wrap, wrap->bfs_output, graph->flow_max);
 		flow_update_gates(wrap, graph->source, graph->flow_max);
 		flow_simulate(graph, graph->source, graph->flow_max);
-		del_all(wrap, &(wrap->bfs_output));
 		graph->flow_max++;
 		flow_find_wrapper(wrap, graph);
 	}
