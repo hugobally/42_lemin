@@ -5,12 +5,14 @@
 void				collector(__attribute__((unused)) t_wrap *wrap, __attribute__((unused)) uint8_t flag)
 {
 	if (flag == KO)
-		ft_printf("ERROR\n");
+		ft_putstr("ERROR\n");
 	if (flag == DONE)
 	{
 		//on resoud
-
+		//et on imprime
 	}
-	//on free
+	ft_free_wrap(wrap);
+	if (flag == OK)
+		return ;
 	exit(1);
 }

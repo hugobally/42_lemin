@@ -60,6 +60,8 @@ void        ft_add_link(t_wrap *wraper, char *str, t_graph *graph)
         collector(wraper, KO);
     if (!(ft_add_edges(room_2, room_1, wraper, graph)))
         collector(wraper, KO);
+    free(room_1);
+    free(room_2);
 }
 
 int         ft_make_graph(t_wrap *wraper, int size, t_graph *graph)

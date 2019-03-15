@@ -42,11 +42,13 @@ int			main(void)
 		if (!create_file(&wrap, "viz/graph_data.js"))
 			collector(&wrap, KO);
 		graph_to_file(&wrap, &(wrap.graph));
-		viz_launch();
+		//viz_launch();
 		close(wrap.out_fd);
 	}
 	else
 		output(&wrap, wrap.graph.source,
 						wrap.graph.flow_best,
 						wrap.graph.source_capacity);
+	
+	collector(&wrap, OK);
 }
