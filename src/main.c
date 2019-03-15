@@ -46,4 +46,6 @@ int			main(void)
 		output(&wrap, wrap.graph.source,
 						wrap.graph.flow_best,
 						wrap.graph.source_capacity);
+	
+	collector(&wrap, OK);
 }

@@ -90,8 +90,6 @@ int     ft_read_standard(t_wrap *wraper)
     start = NULL;
     while ((ret = get_next_line(0, &line)) && ret > 0)
     {
-        if (ft_strcmp(line, "") == 0)
-            collector(wraper, KO);
         add_end(wraper, line, &start, &wraper->input_end);
         if (i == 0)
             i = ft_count_nodes(line, &nodes);
