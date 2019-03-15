@@ -110,7 +110,7 @@ var node = g.append("g")
         .data(nodes_data)
         .enter()
         .append("circle")
-        .attr("r", d => (radius + ((d.type != "0") * radius)))
+        .attr("r", d => (radius + ((d.type != "0") ? 10 * radius : 0)))
         .attr("fill", circleColour);
  
 // Emphasize start and end
@@ -215,14 +215,18 @@ function executeTurn(i, j, movesGroup) {
                     .attr("r", 10)
                     .attr("fill", "white");
 
-    d3.selectAll("line")
-        .filter((d) => {return d.source.name == source.name})
-          .remove();
-
     circleMove.transition()
                     .duration(turnDuration)
                     .attr("cx", target.attr("cx"))
                     .attr("cy", target.attr("cy"))
+
+    d3.selectAll("line")
+        .filter((d) => {return ((d.target.name == target.datum().name &&
+                                d.source.name == source.datum().name) ||
+                                (d.source.name == target.datum().name &&
+                                d.target.name == source.datum().name))})
+          .style("stroke", "red")
+          .attr("stroke-width", 4);
 
   }
   
