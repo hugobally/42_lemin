@@ -1,5 +1,6 @@
 #include "libft.h"
 #include "lem_in.h"
+#include <unistd.h>//DEBUG
 
 /*
 ** And edge is considered legal if it has not been visited on the current
@@ -16,72 +17,63 @@
 ** 	 between sink and sink parents
 */
 
-/* ** Check for legal edge
+/* TODO 
+** ** Check for legal edge
+** 1. if child has already been visited, or if we're going to source or from sink -> reject
+** 2. if we know we're on an existing path -> accept
+** 3. if child has a hop that goes to parent : we're on an existing path -> accept
+** 4. if parent has any hop and we're not at start going to a fresh child -> reject
+** 5. accept
 */
 
 static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 {
-	t_list			*hop;
-	t_list			*next_hop;
+	t_list			*parent_hop;
+	t_list			*child_hop;
 
-	hop = parent->hop_data;
-	next_hop = child->hop_data;
+	parent_hop = parent->hop_data;
+	child_hop = child->hop_data;
 
-	if (child->bfs_data.last_visited == flow
-			|| child->type == START || parent->type == END)
+	if (child->last_visited == flow
+			|| child->type == START
+			|| parent->type == END)
 		return (0);
-	if (parent->bfs_data.residual == flow)
-		return (1);
-	if (hop_get(next_hop) == parent)
+	if (parent->residual == flow)
 	{
-		child->bfs_data.residual = flow;
+		if (hop_get(child_hop) == parent)
+		{
+			child->residual = flow;
+		}
 		return (1);
 	}
-	if (hop_get(hop))
+	if (hop_get(child_hop) == parent)
 	{
-		if (parent->type == START && !(hop_get(next_hop)))
+		child->residual = flow;
+		return (1);
+	}
+	if (hop_get(parent_hop))
+	{
+		if (parent->type == START && !(hop_get(child_hop)))
 			return (1);
 		return (0);
 	}
 	return (1);
 }
 
-/*
-** Updates node data with check_node
-** If sink is found, a path is built from parent pointers and
-** level + frontier are discarded
-*/
-
-static void			build_path(t_wrap *wrap, t_node *start)
-{
-	t_node			*node;
-	t_list			*path;
-
-	path = NULL;
-	node = start;
-	while (node)
-	{
-		add_start(wrap, (void*)node, &path);
-		node = node->bfs_data.parent;
-	}
-	if (wrap->bfs_output)
-		del_all(wrap, &(wrap->bfs_output));
-	wrap->bfs_output = path;
-}
-
-static uint8_t		check_node(t_wrap *wrap, t_node *parent, t_node *child,
+static void			check_node(t_wrap *wrap, t_node *parent, t_node *child,
 									int flow)
 {
-	child->bfs_data.last_visited = flow;
-	child->bfs_data.parent = parent;
 	if (child->type == END)
 	{
-		build_path(wrap, child);
-		del_all(wrap, &(wrap->bfs_state->level));
-		del_all(wrap, &(wrap->bfs_state->frontier));
-		return (1);
+		if (parent->type == START)
+			child->last_visited = flow;
+		add_start(wrap, (void*)parent, &(wrap->bfs_output)); 
 	}
-	return (0);
+	else
+	{
+		child->last_visited = flow;
+		child->parent = parent;
+	}
 }
 
 /*
@@ -115,8 +107,7 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 				child = (t_node*)(edge->content);
 				if (legal_edge(parent, child, flow))
 				{
-					if (check_node(wrap, parent, child, flow))
-						break;
+					check_node(wrap, parent, child, flow);
 					add_start(wrap, child, &(bfs.frontier));
 				}
 				edge = edge->next;

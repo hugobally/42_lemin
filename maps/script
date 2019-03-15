@@ -1,1 +1,18 @@
-maps/generator --big-superposition > maps/hard ; echo me ; ./lem-in < maps/hard | grep Turn | tail -1 | cut -d   -f 2 ; echo best ; grep required maps/hard | tail -1 | cut -d   -f 8 ; echo --
+#!/bin/bash
+
+
+while true; do
+
+	maps/right_maps/generator --big-superposition > maps/temporary.map
+	ME=`./lem-in < maps/temporary.map | tail -1`
+	BEST=`grep required maps/temporary.map | tail -1 | cut -d ' ' -f 8`
+	if [[ $(($ME - $BEST)) -le 0 ]];then
+		echo -e "$(($ME - $BEST))"
+	else
+		echo -e "\t$(($ME - $BEST))"
+	fi
+	sleep 0.5;
+
+done
+
+#maps/right_maps/generator --big-superposition > maps/temporary.map ;  ; grep Here maps/temporary.map
