@@ -4,16 +4,14 @@
 while true; do
 
 	maps/right_maps/generator --big-superposition > maps/temporary.map
-	printf "v1 : "
-	printf `./lem-in-old < maps/temporary.map | diff maps/temporary.map - | tail -n +2 | wc -l`
-	printf "\n"
-	printf "v2 : "
-	printf `./lem-in < maps/temporary.map | diff maps/temporary.map - | tail -n +2 | wc -l`
-	printf "\n"
-	printf "best : "
-	printf `grep required maps/temporary.map| tail -1 | cut -d   -f 8`
-	printf "------\n"
-	sleep 1
+	ME=`./lem-in < maps/temporary.map | tail -1`
+	BEST=`grep required maps/temporary.map | tail -1 | cut -d ' ' -f 8`
+	if [[ $(($ME - $BEST)) -le 0 ]];then
+		echo -e "$(($ME - $BEST))"
+	else
+		echo -e "\t$(($ME - $BEST))"
+	fi
+	sleep 0.5;
 
 done
 
