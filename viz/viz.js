@@ -18,9 +18,7 @@ var svg = d3.select("svg"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
     
-console.log(svg.attr("width"));
-
-var radius = 15; 
+var radius = 3; 
 
 // Set up the simulation and add forces  
 
@@ -114,15 +112,15 @@ function linkColour(d){
 // Drag functions [d is current node]
 
 function drag_start(d) {
- if (!d3.event.active) simulation.alphaTarget(0.3).restart();
-    d.fx = d.x;
-    d.fy = d.y;
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+        d.fx = d.x;
+        d.fy = d.y;
 }
 
 function drag_end(d) {
   if (!d3.event.active) simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
+  d.fx = d.x;
+  d.fy = d.y;
 }
 
 // Makes sure you can't drag the circle outside the box

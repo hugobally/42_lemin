@@ -57,4 +57,4 @@ lem_in_test
 *.sw*
 *.map
 graph_data.js
-moves_data.js
+turns_data.js
