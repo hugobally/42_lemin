@@ -36,7 +36,6 @@ int					get_path_value(t_node *path_start)
 	while (node && node->parent)
 	{
 		value += hop_get(node->hop_data) ==node->parent ? -1 : 1;
-//		ft_printf("node %s, value %d\n", node->name, value);
 		node = node->parent;
 	}
 	return (value);
@@ -57,7 +56,6 @@ void				choose_best_path(t_wrap *wrap, t_graph *graph,
 	{
 		node = (t_node*)(candidate->content);
 		value = get_path_value(node);
-//		ft_printf("found a path for flow %d with value %d\n", graph->flow_max, value);
 		if (best_value == 0 || value < best_value)
 		{
 			best_value = value;
