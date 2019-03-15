@@ -43,14 +43,12 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 		if (hop_get(child_hop) == parent)
 		{
 			child->residual = flow;
-	//		ft_printf("%s : RESIDUAL\n", child->name);
 		}
 		return (1);
 	}
 	if (hop_get(child_hop) == parent)
 	{
 		child->residual = flow;
-//		ft_printf("%s : RESIDUAL\n", child->name);
 		return (1);
 	}
 	if (hop_get(parent_hop))
@@ -89,16 +87,6 @@ static void			check_node(t_wrap *wrap, t_node *parent, t_node *child,
 ** is stored in wrap->bfs_output
 */
 
-void				debug_print_path(t_list *node)
-{
-	while (node)
-	{
-		ft_printf("%s | ", ((t_node*)(node->content))->name);
-		node = node->next;
-	}
-	ft_printf("\n");
-}
-
 void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 {
 	t_bfs			bfs;
@@ -117,20 +105,13 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 			while (edge)
 			{
 				child = (t_node*)(edge->content);
-//				ft_printf("%s >  %s ", parent->name, child->name);
 				if (legal_edge(parent, child, flow))
 				{
-//					ft_printf("(legal edge)\n");
 					check_node(wrap, parent, child, flow);
 					add_start(wrap, child, &(bfs.frontier));
 				}
 				edge = edge->next;
 			}
 			del_start(wrap, &(bfs.level));
-//			ft_printf("\nlevel : ");
-//			debug_print_path(bfs.level);
-//			ft_printf("frontier : ");
-//			debug_print_path(bfs.frontier);
-//			ft_printf("\n");
 		}
 }
