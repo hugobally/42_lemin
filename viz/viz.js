@@ -155,3 +155,48 @@ document.addEventListener('keydown', (event) => {
 	//const keyName = event.key;
 }, false);
 */
+
+// Model moves every turn
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  
+async function runTurnsModel () {
+
+        var source;
+        var target;
+        var circleMove;
+        var movesGroup;
+
+        movesGroup = g.append("g")
+                        .attr("id", "movesGroup")
+                        .lower();//temporary fix
+        
+        d3.selectAll(".links").lower();
+
+        for (var i = 0; i < turns_data.length; i++) {
+            d3.selectAll(".move").remove();
+            for (var j = 0; j < turns_data[i].length; j++) {
+
+                console.log("i : ", i.toString() + " j : ", j.toString());
+                source = d3.selectAll("circle")
+                                .filter((d) => {if (d) return d.name == turns_data[i][j].source});
+                target = d3.selectAll("circle")
+                                .filter((d) => {if (d) return d.name == turns_data[i][j].target});
+                console.log(source.attr("cx"));
+                circleMove = movesGroup.append("circle")
+                                .attr("class", "move")
+                                .attr("cx", source.attr("cx"))
+                                .attr("cy", source.attr("cy"))
+                                .attr("r", 10)
+                                .attr("fill", "white")
+                
+                circleMove.transition()
+                                .duration(3000)
+                                .attr("cx", target.attr("cx"))
+                                .attr("cy", target.attr("cy"))
+            }
+            await sleep(2000);
+        }
+}
