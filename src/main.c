@@ -23,12 +23,9 @@ int			main(void)
 	ft_bzero(&wrap, sizeof(t_wrap));
 	ft_bzero(&graph, sizeof(t_graph));
 
-// INPUT
 	ft_read_map(&wrap, &graph);
 	//ft_print_hash_tab(&(graph), 1);
 	flow_create_all(&wrap, &(wrap.graph));
-
-// VIZ PREP
 
 	printinput(wrap.input_start);
 	if (wrap.viz_option || 1)//rmv 1
@@ -42,7 +39,7 @@ int			main(void)
 		if (!create_file(&wrap, "viz/graph_data.js"))
 			collector(&wrap, KO);
 		graph_to_file(&wrap, &(wrap.graph));
-		//viz_launch();
+		viz_launch();
 		close(wrap.out_fd);
 	}
 	else
