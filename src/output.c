@@ -86,10 +86,12 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 	t_bfs			sim;
 	t_list			*edge;
 	int				counter;
+	int				turn_counter;//DEBUG
 
 	ft_bzero((void*)&sim, sizeof(t_bfs));
 	wrap->bfs_state = &sim;
 	counter = 0;
+	turn_counter = 0;//DEBUG
 	while (!counter || update_level(&(sim.level), &(sim.frontier)))
 	{
 		turn_control(wrap, TURN_START, 0);
@@ -105,5 +107,7 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 			edge = edge->next;
 		}
 		turn_control(wrap, TURN_END, sim.frontier == NULL);
+		turn_counter++;//DEBUG
 	}
+	ft_printf("%d\n", turn_counter);
 }
