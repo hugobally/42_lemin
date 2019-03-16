@@ -66,7 +66,7 @@ function drawMoves (turnGroup, turnArray, turnDuration) {
                                         .attr("class", "ant")
                                         .attr("cx", source.attr("cx"))
                                         .attr("cy", source.attr("cy"))
-                                        .attr("r", nodeRadius)
+                                        .attr("r", nodeRadius * 3)
                                         .attr("fill", "white");
 
         circleMove.transition()
@@ -80,14 +80,14 @@ function drawMoves (turnGroup, turnArray, turnDuration) {
 
 async function runTurns () {
 
-	var turnDuration = 1000;
+	var turnDuration = 300;
 
 	// Create new group for displaying moves
         var turnGroup = g.append("g")
 		        .attr("id", "turn");
 
 	// Draw turn data behind nodes and on top of links (there's probably a better way to do this)
-	turnGroup.lower();
+//	turnGroup.lower();
         d3.selectAll(".links").lower();
 
 	// Stop simulation
@@ -97,7 +97,7 @@ async function runTurns () {
         for (var i = 0; i < turns_data.length; i++)
 	{
             drawMoves(turnGroup, turns_data[i], turnDuration);
-            await(sleep(turnDuration));
+            await(sleep(turnDuration / 2));
             d3.selectAll(".ant").remove();
         }
 }

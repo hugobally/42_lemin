@@ -17,17 +17,21 @@ var link = g.append("g")
 // Draw node circles
 
 var nodeRadius = 25;
-var emphasizedNodeRadius = 150;
+var emphasizedNodeRadius = 300;
 
 var node = g.append("g")
               .attr("class", "nodes") 
             .selectAll("circle")
             .data(nodes_data)
             .enter()
-						.append("circle")
-							.attr("id", d => {return d.name})
-              .attr("r", getCircleRadius)
-              .attr("fill", circleColour);
+			.append("circle")
+			  .attr("id", d => {return d.name})
+			  .attr("r", getCircleRadius)
+           	  .attr("fill", circleColour);
+
+d3.selectAll("circle")
+			.filter((d) => {return (d.type != 0)})
+			.style("fill-opacity", 1);
 
 // Get circle color from node data
 
@@ -42,9 +46,9 @@ function getCircleRadius(d)
 function circleColour(d)
 {
 	if (d.type == 1)
-	    return "blue";
+	    return "white";
 	else if (d.type == 2)
-	    return "red";
+	    return "white";
 	else
-	    return "beige";
+	    return ("#848581");
 }
