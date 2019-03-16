@@ -92,6 +92,7 @@ void				flow_create_all(t_wrap *wrap, t_graph *graph)
 	flow_find_wrapper(wrap, graph);
 	while (wrap->bfs_output)
 	{
+		ft_printf("flow number : %d\n", graph->flow_max);
 		flow_update_nodes(wrap, wrap->bfs_output, graph->flow_max);
 		flow_update_gates(wrap, graph->source, graph->flow_max);
 		flow_simulate(graph, graph->source, graph->flow_max);

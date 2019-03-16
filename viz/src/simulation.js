@@ -12,10 +12,10 @@ var simulation = d3.forceSimulation()
                               
 var link_force =  d3.forceLink(links_data)
                        .id(function(d) { return d.name; })
-                       .strength(1);
+                       .strength(1.5);
          
 var charge_force = d3.forceManyBody()
-    			.strength(-1000);  // Default : -100
+    			.strength(-100);  // Default : -100
     
 var center_force = d3.forceCenter(width / 2, height / 2);  
 
@@ -26,13 +26,15 @@ simulation
 
 // Add tick instructions: 
 
-//simulation.on("tick", tickActions);
+simulation.on("tick", tickActions);
 simulation.stop();
 
-for (var i = 0; i < 100; i++)
+for (var i = 0; i < 10; i++)
     simulation.tick();
 
-//function tickActions() {
+tickActions();
+
+function tickActions() {
 
     //update circle positions each tick of the simulation 
 	
@@ -48,5 +50,4 @@ for (var i = 0; i < 100; i++)
         .attr("x2", function(d) { return d.target.x; })
         .attr("y2", function(d) { return d.target.y; });
 
-//}
-//simulation.alphaTarget(0.3).restart();
+}

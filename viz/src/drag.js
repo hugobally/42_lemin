@@ -19,7 +19,8 @@ function drag_start(d) {
 
 function drag_end(d) {
 
-    if (!d3.event.active) simulation.alphaTarget(0);
+//    if (!d3.event.active) simulation.alphaTarget(0);
+    if (!d3.event.active) simulation.stop();
 	d.fx = d.x;
 	d.fy = d.y;
 
