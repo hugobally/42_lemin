@@ -88,7 +88,7 @@ int     ft_read_standard(t_wrap *wraper)
     nodes = 0;
     line = NULL;
     start = NULL;
-    while ((ret = get_next_line(0, &line)) && ret > 0)
+    while ((ret = get_next_line(0, &line)) > 0)
     {
         add_end(wraper, line, &start, &wraper->input_end);
         if (i == 0)
