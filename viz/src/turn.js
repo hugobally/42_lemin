@@ -97,7 +97,7 @@ async function runTurns () {
         for (var i = 0; i < turns_data.length; i++)
 	{
             drawMoves(turnGroup, turns_data[i], turnDuration);
-            await(sleep(turnDuration / 2));
+            await(sleep(turnDuration));
             d3.selectAll(".ant").remove();
         }
 }

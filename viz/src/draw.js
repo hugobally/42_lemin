@@ -29,9 +29,13 @@ var node = g.append("g")
 			  .attr("r", getCircleRadius)
            	  .attr("fill", circleColour);
 
-d3.selectAll("circle")
-			.filter((d) => {return (d.type != 0)})
-			.style("fill-opacity", 1);
+var sourceNode = d3.selectAll("circle")
+					.filter((d) => {return (d.type == 1)})
+					.raise();
+
+var sinkNode = d3.selectAll("circle")
+					.filter((d) => {return (d.type == 2)})
+					.raise();
 
 // Get circle color from node data
 
