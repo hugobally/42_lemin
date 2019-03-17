@@ -24,14 +24,15 @@ void				parse_table(t_wrap *wrap, t_graph *graph, t_list **nodes,
 	int				i;
 	int				table_size;
 
-	if (!nodes)
-		collector(wrap, KO);
-	table_size = graph->table_size;
-	i = 0;
-	while (i < table_size)
+	if (nodes)
 	{
-		action(wrap, nodes[i]);
-		i++;
+		table_size = graph->table_size;
+		i = 0;
+		while (i < table_size)
+		{
+			action(wrap, nodes[i]);
+			i++;
+		}
 	}
 }
 
@@ -53,7 +54,8 @@ static uint8_t		find_reverse_edge(t_node *parent, t_node *child)
 	return (0);
 }
 
-void				delete_duplicate(t_wrap *wrap, t_list *start)
+void				delete_duplicate(__attribute__((unused)) t_wrap *wrap,
+										t_list *start)
 {
 	t_list			*elem;
 	t_node			*parent;
@@ -69,7 +71,7 @@ void				delete_duplicate(t_wrap *wrap, t_list *start)
 		{
 			child = (t_node*)(edge->content);
 			if (find_reverse_edge(parent, child))
-				del_one(wrap, edge, &(parent->edges));
+				del_one(edge, &(parent->edges));
 			edge = edge->next;
 		}
 		elem = elem->next;
@@ -84,7 +86,7 @@ void				graph_to_file(t_wrap *wrap, t_graph *graph)
 {
 	ft_dprintf(wrap->out_fd, "var sourceCapacity = %d;\n\n",
 								graph->source_capacity);
-	parse_table(wrap, graph, graph->nodes, &delete_duplicate);
+//	parse_table(wrap, graph, graph->nodes, &delete_duplicate);
 	ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
 	parse_table(wrap, graph, graph->nodes, &nodes_to_file);
 	ft_dprintf(wrap->out_fd, "]\n\n");
