@@ -78,9 +78,10 @@ function drawMoves (turnGroup, turnArray, turnDuration) {
     }
   }
 
+var turnDuration = 500;
+
 async function runTurns () {
 
-	var turnDuration = 300;
 
 	// Create new group for displaying moves
         var turnGroup = g.append("g")

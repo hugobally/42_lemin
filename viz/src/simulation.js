@@ -12,10 +12,10 @@ var simulation = d3.forceSimulation()
                               
 var link_force =  d3.forceLink(links_data)
                        .id(function(d) { return d.name; })
-                       .strength(1.5);
+                       .strength(0.5);
          
 var charge_force = d3.forceManyBody()
-    			.strength(-100);  // Default : -100
+    			.strength(-1000);  // Default : -100
     
 var center_force = d3.forceCenter(width / 2, height / 2);  
 
@@ -29,7 +29,7 @@ simulation
 simulation.on("tick", tickActions);
 simulation.stop();
 
-for (var i = 0; i < 10; i++)
+for (var i = 0; i < 100; i++)
     simulation.tick();
 
 tickActions();
