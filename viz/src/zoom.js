@@ -29,8 +29,6 @@ function zoomFit(transitionDuration, root) {
     var scale = 0.85 / Math.max(width / fullWidth, height / fullHeight);
     var translate = [fullWidth / 2 - scale * midX, fullHeight / 2 - scale * midY];
 
-    console.trace("zoomFit", translate, scale);
-
     var transform = d3.zoomIdentity
         .translate(translate[0], translate[1])
         .scale(scale);

@@ -27,7 +27,7 @@ var node = g.append("g")
 			.append("circle")
 			  .attr("id", d => {return d.name})
 			  .attr("r", getCircleRadius)
-           	  .attr("fill", circleColour);
+			  .attr("fill", circleColour)
 
 var sourceNode = d3.selectAll("circle")
 					.filter((d) => {return (d.type == 1)})

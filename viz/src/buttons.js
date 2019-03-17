@@ -15,3 +15,8 @@ noUiSlider.create(rangeSlider, {
 rangeSlider.noUiSlider.on('change', () => {
     turnDuration = parseInt(rangeSlider.noUiSlider.get())
 });
+
+function launchTurnsButton() {
+    if (!preventOtherEvents)
+        runTurns();
+}

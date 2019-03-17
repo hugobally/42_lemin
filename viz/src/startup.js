@@ -4,8 +4,8 @@ var get_svg = document.getElementById("viz"),
 	get_html = document.getElementsByTagName("html")[0];
 
 var resize_svg = () => {
-	get_svg.setAttribute("width", get_html.clientWidth - 20);
-	get_svg.setAttribute("height", get_html.clientHeight - 20);
+	get_svg.setAttribute("width", get_html.clientWidth - 30);
+	get_svg.setAttribute("height", get_html.clientHeight - 30);
 }
 
 window.addEventListener('resize', resize_svg);

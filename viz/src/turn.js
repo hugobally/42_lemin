@@ -1,9 +1,20 @@
 // Model movement of ants for every turn
 
 var colorIndex = 0;
+var counterText = d3.select("#counter")
+//                       .append("text")
+ //                      .attr("font-size", "20px")
+  //                     .attr("fill", "white");
 
 function sleep (ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+function updateTurnProgressCounter(reset)
+{
+        if (!reset)
+                turnProgressCounter += 1;
+        counterText.text(turnProgressCounter + "/" + sourceCapacity);
 }
 
 function colorLink (source, target, color, turnDuration) {
@@ -74,13 +85,20 @@ function drawMoves (turnGroup, turnArray, turnDuration) {
                         .attr("cx", target.attr("cx"))
                         .attr("cy", target.attr("cy"));
         
+        if (source.datum().type == 2 || target.datum().type == 2)
+            updateTurnProgressCounter(0);
+        
         colorLink(source, target, color, turnDuration);
     }
   }
 
 var turnDuration = 500;
+var turnProgressCounter = 0;
 
 async function runTurns () {
+
+        turnProgressCounter = 0;
+        updateTurnProgressCounter(1);
 
         preventOtherEvents = true;
 
