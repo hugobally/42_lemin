@@ -3,6 +3,10 @@
 var g = svg.append("g")
     	     .attr("class", "everything");
 
+var linkWidth = smallMap ? 10 : 50;
+var nodeRadius = smallMap ? 5 : 25;
+var emphasizedNodeRadius = smallMap ? 20 : 300;
+
 // Draw link lines
 
 var link = g.append("g")
@@ -11,13 +15,10 @@ var link = g.append("g")
 	    .data(links_data)
 	    .enter()
 	    .append("line")
-	      .attr("stroke-width", 50) // default 2
+	      .attr("stroke-width", linkWidth) // default 2
 	      .style("stroke", "gray");        
 
 // Draw node circles
-
-var nodeRadius = 25;
-var emphasizedNodeRadius = smallMap ? 75 : 300;
 
 var node = g.append("g")
               .attr("class", "nodes") 

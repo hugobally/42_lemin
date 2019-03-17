@@ -77,7 +77,7 @@ function drawMoves (turnGroup, turnArray, turnDuration) {
                                         .attr("class", "ant")
                                         .attr("cx", source.attr("cx"))
                                         .attr("cy", source.attr("cy"))
-                                        .attr("r", smallMap ? nodeRadius : nodeRadius * 3)
+                                        .attr("r", nodeRadius * 3)
                                         .attr("fill", "white");
 
         circleMove.transition()
