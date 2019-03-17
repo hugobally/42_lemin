@@ -40,3 +40,5 @@ function zoomFit(transitionDuration, root) {
         .duration(transitionDuration || 0) // milliseconds
         .call(zoom_handler.transform, transform);
 }
+
+zoomFit(0, d3.select("svg"));

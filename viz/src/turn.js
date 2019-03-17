@@ -82,6 +82,7 @@ var turnDuration = 500;
 
 async function runTurns () {
 
+        preventOtherEvents = true;
 
 	// Create new group for displaying moves
         var turnGroup = g.append("g")
@@ -101,14 +102,15 @@ async function runTurns () {
             await(sleep(turnDuration));
             d3.selectAll(".ant").remove();
         }
+
+        preventOtherEvents = false;
 }
 
 document.addEventListener('keydown', (event) => {
 
     const keyName = event.key;
   
-    if (keyName === ' ') runTurns();
-    if (keyName === 'z') zoomFit(zoomFitDuration, d3.select("svg"));
+    if (keyName === ' ' && !preventOtherEvents) runTurns();
 
   }, false);
 

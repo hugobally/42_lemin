@@ -1,11 +1,14 @@
 var rangeSlider = document.getElementById('slider-range-speed');
 
+minTurnSpeed = bigMap ? 5000 : 1000;
+maxTurnSpeed = bigMap ? 500 : 0;
+
 noUiSlider.create(rangeSlider, {
     start: [turnDuration],
     direction: 'rtl',
     range: {
-        'min': [100],
-        'max': [3000]
+        'min': [maxTurnSpeed],
+        'max': [minTurnSpeed]
     }
 });
 

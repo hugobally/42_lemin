@@ -1,9 +1,12 @@
 // Add drag capabilities  
 
+var preventOtherEvents = false;
+
 var drag_handler = d3.drag()
 	.on("start", drag_start)
 	.on("drag", drag_drag)
-	.on("end", drag_end);	
+    .on("end", drag_end)	
+    .filter(() => {return !preventOtherEvents});
 	
 drag_handler(node);
 

@@ -15,4 +15,6 @@ resize_svg();
 
 var svg = d3.select("svg"),
     width = +svg.attr("width"),
-    height = +svg.attr("height");
+	height = +svg.attr("height");
+
+bigMap = nodes_data.length >= 1000;
