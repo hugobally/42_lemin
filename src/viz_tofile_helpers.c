@@ -25,8 +25,7 @@ void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 					source->name, target->name, flag);
 }
 
-void				nodes_to_file(__attribute__((unused)) t_wrap *wrap,
-									t_list *start)
+void				nodes_to_file(t_wrap *wrap, t_list *start)
 {
 	t_list			*elem;
 	t_node			*node;
@@ -41,8 +40,7 @@ void				nodes_to_file(__attribute__((unused)) t_wrap *wrap,
 	}
 }
 
-void				edges_to_file(__attribute__((unused)) t_wrap *wrap,
-									t_list *start)
+void				edges_to_file(t_wrap *wrap, t_list *start)
 {
 	t_list			*elem;
 	t_node			*parent;
