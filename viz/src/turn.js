@@ -77,7 +77,7 @@ function drawMoves (turnGroup, turnArray, turnDuration) {
                                         .attr("class", "ant")
                                         .attr("cx", source.attr("cx"))
                                         .attr("cy", source.attr("cy"))
-                                        .attr("r", nodeRadius * 3)
+                                        .attr("r", smallMap ? nodeRadius : nodeRadius * 3)
                                         .attr("fill", "white");
 
         circleMove.transition()
@@ -123,12 +123,3 @@ async function runTurns () {
 
         preventOtherEvents = false;
 }
-
-document.addEventListener('keydown', (event) => {
-
-    const keyName = event.key;
-  
-    if (keyName === ' ' && !preventOtherEvents) runTurns();
-
-  }, false);
-

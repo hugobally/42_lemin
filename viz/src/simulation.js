@@ -1,10 +1,11 @@
-// Set up the simulation and add forces  
+// Set up the simulation and add forces
 
-
-sourceNode.datum().fx = -10000; //10 000 is a good value for 'big' map
-sourceNode.datum().fy = -10000;
-sinkNode.datum().fx = 10000;
-sinkNode.datum().fy = 10000;
+if (!smallMap) {
+    sourceNode.datum().fx = -10000; //10 000 is a good value for 'big' map
+    sourceNode.datum().fy = -10000;
+    sinkNode.datum().fx = 10000;
+    sinkNode.datum().fy = 10000;
+}
 
 var simulation = d3.forceSimulation()
                .nodes(nodes_data)

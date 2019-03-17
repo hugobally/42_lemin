@@ -17,7 +17,7 @@ var link = g.append("g")
 // Draw node circles
 
 var nodeRadius = 25;
-var emphasizedNodeRadius = 300;
+var emphasizedNodeRadius = smallMap ? 75 : 300;
 
 var node = g.append("g")
               .attr("class", "nodes") 
