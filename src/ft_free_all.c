@@ -2,6 +2,7 @@
 #include "stdlib.h"
 #include "libft.h"
 
+/*
 void				ft_free_nodes(t_node *lst)
 {
 	t_list 	*edges;
@@ -18,6 +19,41 @@ void				ft_free_nodes(t_node *lst)
 	}
 	ft_memdel((void**)&lst);
 }
+*/
+
+void				ft_free_node(t_node *node)
+{
+	t_list			*hop;
+	t_list			*gate_data;
+
+	if (node->edges)
+		del_all(&(node->edges));
+	if (node->name)
+		ft_memdel((void**)&(node->name));
+	if (node->hop_data)
+	{
+		hop = node->hop_data;
+		while (hop)
+		{
+			if (hop->content)
+				ft_memdel((void**)&(hop->content));
+			hop = hop->next;
+		}
+		del_all(&(node->hop_data));
+	}
+	if (node->gate_data)
+	{
+		gate_data = node->gate_data;
+		while (gate_data)
+		{
+			if (gate_data->content)
+				ft_memdel((void**)&(gate_data->content));
+			gate_data = gate_data->next;
+		}
+		del_all(&(node->gate_data));
+	}
+	ft_memdel((void**)&node);
+}
 
 void				ft_free_nodes_list(t_list *lst)
 {
@@ -26,29 +62,33 @@ void				ft_free_nodes_list(t_list *lst)
 	while (lst)
 	{
 		tmp = lst->next;
-		if (lst->content != NULL)
-			ft_free_nodes((t_node *)lst->content);
+		if (lst->content)
+			ft_free_node((t_node*)lst->content);
 		ft_memdel((void**)&lst);
 		lst = tmp;
 	}
-
 }
 
 void				ft_free_graph(t_graph *graph)
 {
 	t_list **tab;
+	int size;
 	int i;
 
-	tab = graph->nodes;
-	i = 0;
-	while (i < graph->table_size)
+	if (graph->nodes)
 	{
-		if (tab[i] != NULL)
-			ft_free_nodes_list(tab[i]);
-		i++;
+		tab = graph->nodes;
+		size = graph->table_size;
+		i = 0;
+		while (i < size)
+		{
+			if (tab[i])
+				ft_free_nodes_list(tab[i]);
+			i++;
+		}
+		free(graph->nodes);
+		graph->nodes = NULL;
 	}
-	if (tab != NULL)
-		free(tab);
 }
 
 void				ft_free_list(t_list *lst)
@@ -59,9 +99,8 @@ void				ft_free_list(t_list *lst)
 	{
 		tmp = lst->next;
 		if (lst->content != NULL)
-			free(lst->content);
-		if (lst != NULL)
-			free(lst);
+			ft_memdel((void**)&(lst->content));
+		ft_memdel((void**)&(lst));
 		lst = tmp;
 	}
 }
