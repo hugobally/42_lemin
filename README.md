@@ -12,6 +12,7 @@ Main
 
 Viz
 
+* Fix bug with color
 * Faster layout when dragging
 * Add button to position BigSuperposition correctly via translation and redraw
 * Calibrate number of iterations on loading (tick for loop)
