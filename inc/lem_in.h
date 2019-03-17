@@ -165,10 +165,8 @@ void				ft_free_wrap(t_wrap *wrap);
 void				add_start(t_wrap *wrap, void *content, t_list **start);
 void				add_end(t_wrap *wrap, void *content,
 								t_list **start, t_list **end);
-void				del_start(t_wrap *wrap, t_list **start);
-void				del_end(t_wrap *wrap, t_list **start, t_list **end);
-void				del_all(t_wrap *wrap, t_list **start);
-void				del_one(t_wrap *wrap, t_list *elem, t_list **start);
+void				del_one(t_list *elem, t_list **start);
+void				del_all(t_list **start);
 
 /*
 **	Create all possible flows and store them

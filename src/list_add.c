@@ -14,11 +14,6 @@ void					add_start(t_wrap *wrap, void *content, t_list **start)
 	*start = node;
 }
 
-/*
-** |!| the 'end' ptr will not be updated by other functions,
-** 		dont store it outside of a del/add loop
-*/
-
 void					add_end(t_wrap *wrap, void *content,
 									t_list **start, t_list **end)
 {
@@ -30,7 +25,10 @@ void					add_end(t_wrap *wrap, void *content,
 		collector(wrap, KO);
 	node->content = content;
 	if (!*start)
+	{
 		*start = node;
+		*end = node;
+	}
 	else
 	{
 		if (!*end)

@@ -14,7 +14,7 @@ void				build_path(t_wrap *wrap, t_graph *graph, t_node *start)
 
 	if (start)
 	{
-		del_all(wrap, &(wrap->bfs_output));
+		del_all(&(wrap->bfs_output));
 		output = &(wrap->bfs_output);
 		node = graph->sink;
 		node->parent = start;
@@ -35,7 +35,7 @@ int					get_path_value(t_node *path_start)
 	node = path_start;
 	while (node && node->parent)
 	{
-		value += hop_get(node->hop_data) ==node->parent ? -1 : 1;
+		value += hop_get(node->hop_data) == node->parent ? -1 : 1;
 		node = node->parent;
 	}
 	return (value);
@@ -72,7 +72,7 @@ void				choose_best_path(t_wrap *wrap, t_graph *graph,
 
 void				flow_find_wrapper(t_wrap *wrap, t_graph *graph)
 {
-	del_all(wrap, &(wrap->bfs_output));
+	del_all(&(wrap->bfs_output));
 	graph->source->last_visited = graph->flow_max;
 	flow_find_new(wrap, graph->flow_max, graph->source);
 	wrap->bfs_state = NULL;
@@ -92,7 +92,6 @@ void				flow_create_all(t_wrap *wrap, t_graph *graph)
 	flow_find_wrapper(wrap, graph);
 	while (wrap->bfs_output)
 	{
-		ft_printf("flow number : %d\n", graph->flow_max);
 		flow_update_nodes(wrap, wrap->bfs_output, graph->flow_max);
 		flow_update_gates(wrap, graph->source, graph->flow_max);
 		flow_simulate(graph, graph->source, graph->flow_max);
