@@ -112,6 +112,6 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 				}
 				edge = edge->next;
 			}
-			del_start(wrap, &(bfs.level));
+			del_one(bfs.level, &(bfs.level));
 		}
 }
