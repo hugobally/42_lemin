@@ -82,6 +82,8 @@ void				delete_duplicate(t_wrap *wrap, t_list *start)
 
 void				graph_to_file(t_wrap *wrap, t_graph *graph)
 {
+	ft_dprintf(wrap->out_fd, "var sourceCapacity = %d;\n\n",
+								graph->source_capacity);
 	parse_table(wrap, graph, graph->nodes, &delete_duplicate);
 	ft_dprintf(wrap->out_fd, "var nodes_data = [\n");
 	parse_table(wrap, graph, graph->nodes, &nodes_to_file);
