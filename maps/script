@@ -6,20 +6,20 @@ while true; do
 	maps/right_maps/generator --big-superposition > maps/temporary.map
 	ME=`./lem-in < maps/temporary.map | tail -1`
 	BEST=`grep required maps/temporary.map | tail -1 | cut -d ' ' -f 8`
-	if [[ $(($ME - $BEST)) -ge 8 ]];then
-		echo -e "\t$(($ME - $BEST))"
-		break
-	fi
-	if [[ $(($ME - $BEST)) -le -15 ]];then
-		echo -e "\t$(($ME - $BEST))"
-		break
-	fi
-	echo -e "\t$(($ME - $BEST))"
-#	if [[ $(($ME - $BEST)) -le 0 ]];then
-#		echo -e "$(($ME - $BEST))"
-#	else
+#	if [[ $(($ME - $BEST)) -ge 8 ]];then
 #		echo -e "\t$(($ME - $BEST))"
+#		break
 #	fi
+#	if [[ $(($ME - $BEST)) -le -15 ]];then
+#		echo -e "\t$(($ME - $BEST))"
+#		break
+#	fi
+#	echo -e "\t$(($ME - $BEST))"
+	if [[ $(($ME - $BEST)) -le 0 ]];then
+		echo -e "$(($ME - $BEST))"
+	else
+		echo -e "\t$(($ME - $BEST))"
+	fi
 	sleep 0.5;
 
 done
