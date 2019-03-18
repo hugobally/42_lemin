@@ -23,13 +23,11 @@ SRCS_RAW			:=	main.c						\
 						collector.c					\
 						flow_create_all.c			\
 						flow_find_new.c				\
-						flow_update_nodes.c			\
-						flow_update_gates.c			\
+						flow_update.c			\
 						flow_simulate.c				\
 						flow_helpers.c				\
 						viz_tofile.c				\
 						viz_tofile_helpers.c		\
-						viz_launch.c				\
 						ft_read_map.c       		\
 						ft_make_graph.c     		\
 						ft_basic_read.c     		\

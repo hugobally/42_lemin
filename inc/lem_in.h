@@ -20,7 +20,7 @@
 # define END 2
 
 /*
-** Macros for output control
+** Macros for turn control
 */
 
 # define TURN_START -1
@@ -142,8 +142,11 @@ typedef struct		s_wrap
 int     			ft_read_map(t_wrap *wraper, t_graph *graph);
 void	    		ft_make_tab(int size, t_wrap *wraper, t_graph *graph);
 void				ft_get_coord(char *str, t_node **node, t_wrap *wraper);
-void	     		ft_init_graph(t_wrap *wraper, t_table *table, t_graph *graph);
-void        		ft_make_node(t_wrap *wraper, char *str, t_graph *graph, int type);
+void	     		ft_init_graph(t_wrap *wraper,
+									t_table *table,
+									t_graph *graph);
+void        		ft_make_node(t_wrap *wraper, char *str,
+									t_graph *graph, int type);
 int         		ft_make_graph(t_wrap *wraper, int size, t_graph *graph);
 int     			ft_nbr_size(int nbr);
 int                 ft_ants(char *line, t_wrap *wraper, int ants);
@@ -151,10 +154,13 @@ unsigned long       hash(unsigned char *str);
 int     			ft_is_node(char *line, t_wrap *wraper);
 int     			ft_is_link(char *line, t_wrap *wraper);
 int                 ft_is_comment(t_wrap *wraper, char *str, int past);
-void        		ft_get_edges(char **room_1, char **room_2, char *str, t_wrap *wraper);
-int         		ft_add_edges(char *room_1, char *room_2, t_wrap *wraper, t_graph *graph);
-void       			ft_insert_in_tab(t_wrap *wraper, t_graph *graph, int index, t_node *new_node);
-void        		ft_print_hash_tab(t_graph *graph, int full);
+void        		ft_get_edges(char **room_1, char **room_2,
+									char *str, t_wrap *wraper);
+int         		ft_add_edges(char *room_1, char *room_2,
+									t_wrap *wraper, t_graph *graph);
+void       			ft_insert_in_tab(t_wrap *wraper, t_graph *graph,
+									int index, t_node *new_node);
+void        		ft_print_hash_tab(t_graph *graph, int full);//
 t_node      		*ft_get_hashed(char *str, t_graph *graph);
 void				ft_free_wrap(t_wrap *wrap);
 
@@ -190,7 +196,8 @@ void				flow_simulate(t_graph *graph, t_node *source, int flow);
 ** Output
 */
 
-void				output_result(t_wrap *wrap, t_node *source, int flow, int remain);
+void				output_result(t_wrap *wrap, t_node *source,
+									int flow, int remain);
 void				output_mapdata(t_list *input);
 
 /*
@@ -219,6 +226,5 @@ void				move_to_file(t_wrap *wrap, t_node *source, t_node *target,
 void				edges_to_file(t_wrap *wrap, t_list *start);
 void				nodes_to_file(t_wrap *wrap, t_list *start);
 int					create_file(t_wrap *wrap, char *path);
-void				viz_launch(void);
 
 #endif
