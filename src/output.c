@@ -49,14 +49,12 @@ uint8_t				send(t_wrap *wrap, t_node *node, t_bfs *sim, int counter)
 
 void				push(t_wrap *wrap, int flow, t_bfs *sim)
 {
-	t_list			*elem;
 	t_node			*node;
 	t_node			*dest;
 
-	elem = sim->level;
-	while (elem)
+	while (sim->level)
 	{
-		node = ((t_node*)(elem->content));
+		node = ((t_node*)(sim->level->content));
 		dest = hop_get_flow(node->hop_data, flow);
 		dest->guest = node->guest;
 		if (dest->type != END)
@@ -64,7 +62,7 @@ void				push(t_wrap *wrap, int flow, t_bfs *sim)
 		print_move(node->guest, dest, 0);
 		if (wrap->viz_option || 1)//
 			move_to_file(wrap, node, dest, node->guest);
-		elem = elem->next;
+		del_one(sim->level, &(sim->level));
 	}
 }
 
@@ -104,6 +102,7 @@ void				output(t_wrap *wrap, t_node *source, int flow, int remain)
 				counter++;
 				remain--;
 			}
+
 			edge = edge->next;
 		}
 		turn_control(wrap, TURN_END, sim.frontier == NULL);
