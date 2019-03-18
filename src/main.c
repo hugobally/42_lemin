@@ -5,7 +5,8 @@
 static void		stdout_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	output_mapdata(wrap->input_start);
-	output_result(wrap,
+	if (graph->source_capacity > 0)
+		output_result(wrap,
 					graph->source,
 					graph->flow_best,
 					graph->source_capacity);
@@ -28,7 +29,7 @@ static uint8_t	tofile_wrapper(t_wrap *wrap, t_graph *graph)
 	return (1);
 }
 
-static void		output_wrapper(t_wrap *wrap, t_graph *graph)
+void			output_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	flow_create_all(wrap, graph);
 	if (1)//if input option

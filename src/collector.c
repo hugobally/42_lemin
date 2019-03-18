@@ -7,14 +7,11 @@ void			collector(t_wrap *wrap, uint8_t flag)
 	if (flag == KO)
 	{
 		ft_printf("ERROR\n");
-		if (flag == DONE)
-		{
-			//on resoud
-			//et on imprime
-		}
 		ft_free_wrap(wrap);
-		exit(1);
+		exit(EXIT_FAILURE);
 	}
-	else
-		ft_free_wrap(wrap);
+	if (flag == DONE)
+		output_wrapper(wrap, &(wrap->graph));
+	ft_free_wrap(wrap);
+	exit(EXIT_SUCCESS);
 }

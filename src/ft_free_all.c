@@ -23,24 +23,13 @@ void				ft_free_nodes(t_node *lst)
 
 void				ft_free_node(t_node *node)
 {
-	t_list			*hop;
 	t_list			*gate_data;
 
 	if (node->edges)
 		del_all(&(node->edges));
 	if (node->name)
 		ft_memdel((void**)&(node->name));
-	if (node->hop_data)
-	{
-		hop = node->hop_data;
-		while (hop)
-		{
-			if (hop->content)
-				ft_memdel((void**)&(hop->content));
-			hop = hop->next;
-		}
-		del_all(&(node->hop_data));
-	}
+	ft_free_hop(node);
 	if (node->gate_data)
 	{
 		gate_data = node->gate_data;
@@ -71,9 +60,9 @@ void				ft_free_nodes_list(t_list *lst)
 
 void				ft_free_graph(t_graph *graph)
 {
-	t_list **tab;
-	int size;
-	int i;
+	t_list	**tab;
+	int		size;
+	int		i;
 
 	if (graph->nodes)
 	{
@@ -108,10 +97,7 @@ void				ft_free_list(t_list *lst)
 void				ft_free_wrap(t_wrap *wrap)
 {
 	ft_free_list(wrap->input_start);
-    wrap->input_end = NULL;
+	wrap->input_end = NULL;
 	ft_free_graph(&(wrap->graph));
-	//free bfs_output
-	//free bfs_state
-	//viz_option
-	//out_fd
+	//free les autres
 }

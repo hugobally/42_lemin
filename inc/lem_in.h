@@ -146,23 +146,27 @@ void	     		ft_init_graph(t_wrap *wraper,
 									t_table *table,
 									t_graph *graph);
 void        		ft_make_node(t_wrap *wraper, char *str,
-									t_graph *graph, int type);
+									t_graph *graph, int *type);
 int         		ft_make_graph(t_wrap *wraper, int size, t_graph *graph);
 int     			ft_nbr_size(int nbr);
 int                 ft_ants(char *line, t_wrap *wraper, int ants);
 unsigned long       hash(unsigned char *str);
 int     			ft_is_node(char *line, t_wrap *wraper);
-int     			ft_is_link(char *line, t_wrap *wraper);
+int					ft_is_link(char *line, t_wrap *wraper, t_list **prec);
 int                 ft_is_comment(t_wrap *wraper, char *str, int past);
 void        		ft_get_edges(char **room_1, char **room_2,
 									char *str, t_wrap *wraper);
-int         		ft_add_edges(char *room_1, char *room_2,
-									t_wrap *wraper, t_graph *graph);
+int					ft_add_edges(char **room_1, char **room_2, t_wrap *wraper,
+t_graph *graph);
 void       			ft_insert_in_tab(t_wrap *wraper, t_graph *graph,
 									int index, t_node *new_node);
-void        		ft_print_hash_tab(t_graph *graph, int full);//
+void        		ft_print_hash_tab(t_graph *graph, int full);
 t_node      		*ft_get_hashed(char *str, t_graph *graph);
 void				ft_free_wrap(t_wrap *wrap);
+void				ft_free_hop(t_node *node);
+void				ft_mid_file(t_wrap *wraper, int flag, t_list **lst);
+void				ft_free_list(t_list *lst);
+void				output_wrapper(t_wrap *wrap, t_graph *graph);
 
 /*
 **	List Creation/Deletion
