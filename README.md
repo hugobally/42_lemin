@@ -7,7 +7,7 @@ Main
 * Check on input where there's no valid path between start and end
 * Handle /dev/random
 * GNL
-* Norme
+* del of temp ressources of bfs in collector
 
 Viz
 
@@ -24,3 +24,4 @@ BEFORE PUSH
 * rm submodule mention in Makefile
 * add header to Makefile
 * add headers to .c
+* norme
