@@ -31,7 +31,7 @@ static uint8_t	tofile_wrapper(t_wrap *wrap, t_graph *graph)
 static void		output_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	flow_create_all(wrap, graph);
-	if (graph->flow_best_cost)
+	if (graph->flow_best)
 	{
 		if (wrap->opt.dict.export)
 			tofile_wrapper(wrap, graph);
