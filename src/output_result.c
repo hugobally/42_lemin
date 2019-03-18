@@ -74,13 +74,13 @@ void				turn_control(t_wrap *wrap, int flag)
 		turn_number++;
 	if (flag == LAST_TURN_END && wrap->opt.dict.verbose)
 	{
-		ft_printf("\n%-30s : %d\n", "Ants at start",
+		ft_printf("\n%-40s : %d\n", "Ants at start",
 					wrap->graph.source_capacity);
-		ft_printf("%-30s : %d\n", "Number of Ford-Fulkerson iterations",
+		ft_printf("%-40s : %d\n", "Number of Ford-Fulkerson iterations",
 					wrap->graph.flow_max - 1);
-		ft_printf("%-30s : %d\n", "Chosen iteration",
+		ft_printf("%-40s : %d\n", "Chosen iteration",
 					wrap->graph.flow_best);
-		ft_printf("%-30s : %d\n\n", "Total number of lines printed",
+		ft_printf("%-40s : %d\n\n", "Total number of lines printed",
 					turn_number);
 	}
 }
