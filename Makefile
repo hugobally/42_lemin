@@ -6,8 +6,6 @@ SRCSDIR   			=	src
 
 OBJSDIR   			=	obj
 
-TESTDIR				=	unit-test
-
 LIBSPATH			=	.
 
 LIBDIRS				:=	$(LIBSPATH)/libft
@@ -23,7 +21,7 @@ SRCS_RAW			:=	main.c						\
 						collector.c					\
 						flow_create_all.c			\
 						flow_find_new.c				\
-						flow_update.c			\
+						flow_update.c				\
 						flow_simulate.c				\
 						flow_helpers.c				\
 						viz_tofile.c				\
@@ -32,9 +30,10 @@ SRCS_RAW			:=	main.c						\
 						ft_make_graph.c     		\
 						ft_basic_read.c     		\
 						ft_get_edges.c				\
-						output_result.c					\
-						output_mapdata.c				\
-						ft_free_all.c 				\
+						output_result.c				\
+						output_mapdata.c			\
+						input_getoptions.c			\
+						ft_free_all.c
 
 SRCS				:=	$(SRCS_RAW:%.c=$(SRCSDIR)/%.c)
 
@@ -60,7 +59,6 @@ all					:	libs $(NAME)
 
 $(NAME)				: 	$(OBJS) $(LIBFILES)
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
-						ar rc $(TESTDIR)/libtest.a $(filter-out $(OBJSDIR)/main.o,$(OBJS))
 
 # Make Libs
 

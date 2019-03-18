@@ -38,6 +38,22 @@ typedef struct		s_list
 }					t_list;
 
 /*
+** Options
+*/
+
+typedef struct		s_opt_index
+{
+	uint16_t		export:		1;
+	uint16_t		verbose:	1;
+}					t_opt_index;
+
+typedef union		u_opt
+{
+	t_opt_index		dict;
+	uint16_t		opt_int;
+}					t_opt;
+
+/*
 ** Hash Table
 */
 
@@ -127,13 +143,19 @@ typedef struct		s_bfs
 typedef struct		s_wrap
 {
 	t_graph			graph;
+	t_opt			opt;
 	t_list			*input_start;
 	t_list			*input_end;
 	t_bfs			*bfs_state;
 	t_list			*bfs_output;
-	int				viz_option;
 	int				out_fd;
 }					t_wrap;
+
+/*
+** Options
+*/
+
+void				get_options(t_opt *opt, int argc, char **argv);
 
 /*
 **	Parsing

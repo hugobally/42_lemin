@@ -92,5 +92,5 @@ void				graph_to_file(t_wrap *wrap, t_graph *graph)
 	ft_dprintf(wrap->out_fd, "]\n\n");
 	ft_dprintf(wrap->out_fd, "var links_data = [\n");
 	parse_table(wrap, graph, graph->nodes, &edges_to_file);
-	ft_dprintf(wrap->out_fd, "]\n\n");
+	ft_dprintf(wrap->out_fd, "]");
 }
