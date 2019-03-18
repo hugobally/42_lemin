@@ -6,8 +6,6 @@ SRCSDIR   			=	src
 
 OBJSDIR   			=	obj
 
-TESTDIR				=	unit-test
-
 LIBSPATH			=	.
 
 LIBDIRS				:=	$(LIBSPATH)/libft
@@ -60,7 +58,6 @@ all					:	libs $(NAME)
 
 $(NAME)				: 	$(OBJS) $(LIBFILES)
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
-						ar rc $(TESTDIR)/libtest.a $(filter-out $(OBJSDIR)/main.o,$(OBJS))
 
 # Make Libs
 
