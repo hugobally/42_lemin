@@ -87,8 +87,8 @@ int			ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
 			ft_add_link(wraper, input->content, graph, &prec);
 		else
 			ft_mid_file(wraper, DONE, &prec);
-		input = input->next;
 		prec = input;
+		input = input->next;
 		i++;
 	}
 	return (0);
