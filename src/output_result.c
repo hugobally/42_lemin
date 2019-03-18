@@ -79,7 +79,8 @@ void				turn_control(t_wrap *wrap, int flag, int last_turn)
 	}
 }
 
-void				output(t_wrap *wrap, t_node *source, int flow, int remain)
+void				output_result(t_wrap *wrap, t_node *source,
+									int flow, int remain)
 {
 	t_bfs			sim;
 	t_list			*edge;
