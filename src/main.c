@@ -31,10 +31,15 @@ static uint8_t	tofile_wrapper(t_wrap *wrap, t_graph *graph)
 static void		output_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	flow_create_all(wrap, graph);
-	if (wrap->opt.dict.export)
-		tofile_wrapper(wrap, graph);
+	if (graph->flow_best_cost)
+	{
+		if (wrap->opt.dict.export)
+			tofile_wrapper(wrap, graph);
+		else
+			stdout_wrapper(wrap, graph);
+	}
 	else
-		stdout_wrapper(wrap, graph);
+		collector(wrap, KO);
 }
 
 static void		input_wrapper(int argc, char **argv,
