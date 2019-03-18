@@ -1,4 +1,4 @@
-#include "../inc/lem_in.h"
+#include "lem_in.h"
 #include "libft.h"
 #include <unistd.h>
 
@@ -31,24 +31,25 @@ static uint8_t	tofile_wrapper(t_wrap *wrap, t_graph *graph)
 static void		output_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	flow_create_all(wrap, graph);
-	if (1)//if input option
+	if (wrap->opt.dict.export)
 		tofile_wrapper(wrap, graph);
 	else
 		stdout_wrapper(wrap, graph);
 }
 
-static void		input_wrapper(t_wrap *wrap, t_graph *graph)
+static void		input_wrapper(int argc, char **argv,
+								t_wrap *wrap, t_graph *graph)
 {
-	//get options
+	get_options(&(wrap->opt), argc, argv);
 	ft_read_map(wrap, graph);
 }
 
-int				main(void)
+int				main(int argc, char **argv)
 {
 	t_wrap 	wrap;
 
 	ft_bzero(&wrap, sizeof(t_wrap));
-	input_wrapper(&wrap, &(wrap.graph));
+	input_wrapper(argc, argv, &wrap, &(wrap.graph));
 	output_wrapper(&wrap, &(wrap.graph));
 	collector(&wrap, OK);
 }
