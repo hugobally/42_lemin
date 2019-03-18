@@ -190,7 +190,8 @@ void				flow_simulate(t_graph *graph, t_node *source, int flow);
 ** Output
 */
 
-void				output(t_wrap *wrap, t_node *source, int flow, int remain);
+void				output_result(t_wrap *wrap, t_node *source, int flow, int remain);
+void				output_mapdata(t_list *input);
 
 /*
 ** Helpers
