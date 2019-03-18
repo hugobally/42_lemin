@@ -2,50 +2,53 @@
 #include "libft.h"
 #include <unistd.h>
 
-void		printinput(t_list *input)
+static void		stdout_wrapper(t_wrap *wrap, t_graph *graph)
 {
-	t_list	*elem;
-
-	elem = input;
-	while (elem)
-	{
-		ft_printf("%s\n", ((char*)(elem->content)));
-		elem = elem->next;
-	}
-	ft_printf("\n");
+	output_mapdata(wrap->input_start);
+	output_result(wrap,
+					graph->source,
+					graph->flow_best,
+					graph->source_capacity);
 }
 
-int			main(void)
+static uint8_t	tofile_wrapper(t_wrap *wrap, t_graph *graph)
+{
+	if (create_file(wrap, "viz/data/turns_data.js"))
+	{
+		stdout_wrapper(wrap, graph);
+		close(wrap->out_fd);
+		if (create_file(wrap, "viz/data/graph_data.js"))
+		{
+			graph_to_file(wrap, graph);
+			close(wrap->out_fd);
+			return (0);
+		}
+	}
+	collector(wrap, KO);
+	return (1);
+}
+
+static void		output_wrapper(t_wrap *wrap, t_graph *graph)
+{
+	flow_create_all(wrap, graph);
+	if (1)//if input option
+		tofile_wrapper(wrap, graph);
+	else
+		stdout_wrapper(wrap, graph);
+}
+
+static void		input_wrapper(t_wrap *wrap, t_graph *graph)
+{
+	//get options
+	ft_read_map(wrap, graph);
+}
+
+int				main(void)
 {
 	t_wrap 	wrap;
-	t_graph graph;
 
 	ft_bzero(&wrap, sizeof(t_wrap));
-	ft_bzero(&graph, sizeof(t_graph));
-
-	ft_read_map(&wrap, &graph);
-	//ft_print_hash_tab(&(graph), 1);
-	flow_create_all(&wrap, &(wrap.graph));
-
-	printinput(wrap.input_start);
-	if (wrap.viz_option || 1)//rmv 1
-	{
-		if (!create_file(&wrap, "viz/data/turns_data.js"))
-			collector(&wrap, KO);
-		output(&wrap, wrap.graph.source,
-						wrap.graph.flow_best,
-						wrap.graph.source_capacity);
-		close(wrap.out_fd);
-		if (!create_file(&wrap, "viz/data/graph_data.js"))
-			collector(&wrap, KO);
-		graph_to_file(&wrap, &(wrap.graph));
-//		viz_launch();
-		close(wrap.out_fd);
-	}
-	else
-		output(&wrap, wrap.graph.source,
-						wrap.graph.flow_best,
-						wrap.graph.source_capacity);
-	
+	input_wrapper(&wrap, &(wrap.graph));
+	output_wrapper(&wrap, &(wrap.graph));
 	collector(&wrap, OK);
 }
