@@ -5,7 +5,7 @@
 ** TODO change name of bfs structure
 */
 
-void				print_move(int counter, t_node *destination, int flag)
+void				move_to_stdout(int counter, t_node *dest, int flag)
 {
 	static uint8_t	not_at_start;
 	
@@ -18,11 +18,7 @@ void				print_move(int counter, t_node *destination, int flag)
 	{
 		if (not_at_start)
 			ft_printf(" ");
-		ft_printf("L%d-%s",
-					counter,
-					destination ? destination->name : NULL);
-		(void)counter;
-		(void)destination;
+		ft_printf("L%d-%s", counter, dest ? dest->name : NULL);
 		not_at_start = 1;
 	}
 }
@@ -39,8 +35,8 @@ uint8_t				send(t_wrap *wrap, t_node *node, t_bfs *sim, int counter)
 		node->guest = counter;
 		if (node->type != END)
 			add_end(wrap, (void*)node, &(sim->frontier), &(sim->frontier_end));
-		print_move(counter, node, 0);
-		if (wrap->viz_option || 1)//
+		move_to_stdout(counter, node, 0);
+		if (wrap->opt.dict.export)
 			move_to_file(wrap, wrap->graph.source, node, counter);
 		return (1);
 	}
@@ -59,23 +55,33 @@ void				push(t_wrap *wrap, int flow, t_bfs *sim)
 		dest->guest = node->guest;
 		if (dest->type != END)
 			add_end(wrap, (void*)dest, &(sim->frontier), &(sim->frontier_end));
-		print_move(node->guest, dest, 0);
-		if (wrap->viz_option || 1)//
+		move_to_stdout(node->guest, dest, 0);
+		if (wrap->opt.dict.export)
 			move_to_file(wrap, node, dest, node->guest);
 		del_one(sim->level, &(sim->level));
 	}
 }
 
-void				turn_control(t_wrap *wrap, int flag, int last_turn)
+void				turn_control(t_wrap *wrap, int flag)
 {
-	if (flag == TURN_START && (wrap->viz_option || 1))//
-		move_to_file(wrap, NULL, NULL, TURN_START);
-	if (flag == TURN_END)
+	static int		turn_number;
+
+	if (wrap->opt.dict.export)
+		move_to_file(wrap, 0, 0, flag);
+	if (flag <= TURN_END)
+		move_to_stdout(0, 0, TURN_END);
+	if (flag == TURN_START)
+		turn_number++;
+	if (flag == LAST_TURN_END && wrap->opt.dict.verbose)
 	{
-		if (wrap->viz_option || 1)//
-			move_to_file(wrap, NULL, NULL,
-							last_turn ? LAST_TURN_END : TURN_END);
-		print_move(0, NULL, TURN_END);
+		ft_printf("\n%-30s : %d\n", "Ants at start",
+					wrap->graph.source_capacity);
+		ft_printf("%-30s : %d\n", "Number of Ford-Fulkerson iterations",
+					wrap->graph.flow_max - 1);
+		ft_printf("%-30s : %d\n", "Chosen iteration",
+					wrap->graph.flow_best);
+		ft_printf("%-30s : %d\n\n", "Total number of lines printed",
+					turn_number);
 	}
 }
 
@@ -85,15 +91,13 @@ void				output_result(t_wrap *wrap, t_node *source,
 	t_bfs			sim;
 	t_list			*edge;
 	int				counter;
-	int				turn_counter;//DEBUG
 
 	ft_bzero((void*)&sim, sizeof(t_bfs));
 	wrap->bfs_state = &sim;
 	counter = 0;
-	turn_counter = 0;//DEBUG
 	while (!counter || update_level(&(sim.level), &(sim.frontier)))
 	{
-		turn_control(wrap, TURN_START, 0);
+		turn_control(wrap, TURN_START);
 		edge = source->edges;
 		push(wrap, flow, &sim);
 		while (edge && remain)
@@ -103,11 +107,8 @@ void				output_result(t_wrap *wrap, t_node *source,
 				counter++;
 				remain--;
 			}
-
 			edge = edge->next;
 		}
-		turn_control(wrap, TURN_END, sim.frontier == NULL);
-		turn_counter++;//DEBUG
+		turn_control(wrap, sim.frontier ? TURN_END : LAST_TURN_END);
 	}
-	ft_printf("%d\n", turn_counter);
 }
