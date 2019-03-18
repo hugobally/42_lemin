@@ -4,11 +4,9 @@ TODO
 
 Main
 
-* Handle options
-* Possible options to add : output number of lines, change number of ants, color one ant in output
 * Check on input where there's no valid path between start and end
-* Fix collector problems : leak on input acquisition and on printing of output
 * Handle /dev/random
+* GNL
 * Norme
 
 Viz
