@@ -95,6 +95,5 @@ int         ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
         input = input->next;
         i++;
     }
-    wraper->graph = *graph; 
     return(0);
 }
