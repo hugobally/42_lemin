@@ -24,6 +24,5 @@ BEFORE PUSH
 
 * clean libft (rm submodule, norme, rm tests)
 * rm submodule mention in Makefile
-* if test dir is removed, remove libtest.a creation from makefile
 * add header to Makefile
 * add headers to .c
