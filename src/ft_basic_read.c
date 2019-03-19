@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:11:31 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 17:50:38 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:51:59 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int					ft_ants(char *line, t_wrap *wraper, int ants)
 	len = ft_strclen(line, ' ');
 	x = ft_atoi(line);
 	new_len = ft_nbr_size(x);
-	if ((x > 2147483647 || x < -2147483648) || (len != new_len))
+	if (len != new_len)
 		collector(wraper, KO);
 	if (ants == 1 && x < 0)
 		collector(wraper, KO);
