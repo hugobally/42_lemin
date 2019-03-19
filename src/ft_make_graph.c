@@ -57,6 +57,8 @@ void		ft_add_link(t_wrap *wraper, char *str, t_graph *graph, t_list **lst)
 	char	*room_2;
 
 	ft_get_edges(&room_1, &room_2, str, wraper);
+	if (ft_strcmp(room_1, room_2) == 0)
+		ft_mid_file(wraper, DONE, lst);
 	if (!(ft_add_edges(&room_1, &room_2, wraper, graph)))
 		ft_mid_file(wraper, DONE, lst);
 	if (!(ft_add_edges(&room_2, &room_1, wraper, graph)))
