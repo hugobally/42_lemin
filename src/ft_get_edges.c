@@ -3,14 +3,10 @@
 
 void		ft_mid_file(t_wrap *wraper, int flag, t_list **lst)
 {
-	t_graph graph;
 	t_list	*tmp;
 
-	graph = wraper->graph;
-	if (graph.source == NULL || graph.sink == NULL)
-	{
+	if ((wraper->graph).source == NULL || (wraper->graph).sink == NULL)
 		collector(wraper, KO);
-	}
 	else
 	{
 		tmp = (*lst)->next;
