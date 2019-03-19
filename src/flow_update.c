@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flow_update.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 16:08:52 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 16:10:21 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "lem_in.h"
 
-static int			get_path_len(t_node *start)
+int					get_path_len(t_node *start)
 {
 	t_node			*node;
 	int				hop_count;
@@ -34,18 +46,12 @@ void				flow_update_gates(t_wrap *wrap, t_node *source, int flow)
 	}
 }
 
-/*
-** For each node on BFS output path, add or remove hop.
-** TODO If no hop is removed, only the gate data for the newly created path
-** needs to be updated. If hop is removed, store which path it belongs to.
-*/
-
-void			flow_update_nodes(t_wrap *wrap, t_list *path, int flow)
+void				flow_update_nodes(t_wrap *wrap, t_list *path, int flow)
 {
-	t_list		*list_elem;
-	t_node		*node;
-	t_node		*next_node;
-	t_hop		*hop;
+	t_list			*list_elem;
+	t_node			*node;
+	t_node			*next_node;
+	t_hop			*hop;
 
 	list_elem = path;
 	while (list_elem->next)

@@ -1,14 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   output_result.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 16:47:36 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 16:48:02 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 #include "libft.h"
-
-/*
-** TODO change name of bfs structure
-*/
 
 void				move_to_stdout(int counter, t_node *dest, int flag)
 {
 	static uint8_t	not_at_start;
-	
+
 	if (flag == TURN_END)
 	{
 		ft_printf("\n");
@@ -22,7 +30,6 @@ void				move_to_stdout(int counter, t_node *dest, int flag)
 		not_at_start = 1;
 	}
 }
-
 
 uint8_t				send(t_wrap *wrap, t_node *node, t_bfs *sim, int counter)
 {
@@ -111,4 +118,5 @@ void				output_result(t_wrap *wrap, t_node *source,
 		}
 		turn_control(wrap, sim.frontier ? TURN_END : LAST_TURN_END);
 	}
+	wrap->bfs_state = NULL;
 }

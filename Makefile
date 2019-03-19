@@ -6,6 +6,8 @@ SRCSDIR   			=	src
 
 OBJSDIR   			=	obj
 
+EXPORTDIR			=	viz/data
+
 LIBSPATH			=	.
 
 LIBDIRS				:=	$(LIBSPATH)/libft
@@ -58,6 +60,7 @@ INCLIBS				:=	$(foreach LIB,$(LIBDIRS),-L $(LIB) $(subst lib,-l,$(notdir $(LIB))
 all					:	libs $(NAME)
 
 $(NAME)				: 	$(OBJS) $(LIBFILES)
+						@mkdir -p $(EXPORTDIR)
 						$(CC) -o $@ $(CFLAGS) $(INCLIBS) $(OBJS)
 
 # Make Libs

@@ -1,11 +1,16 @@
-#include "lem_in.h"
-#include "libft.h"//DEBUG for printf
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flow_create_all.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 15:48:12 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 15:48:37 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-/*
-** Updates node data with check_node
-** If sink is found, a path is built from parent pointers and
-** level + frontier are discarded
-*/
+#include "lem_in.h"
 
 void				build_path(t_wrap *wrap, t_graph *graph, t_node *start)
 {
@@ -41,7 +46,6 @@ int					get_path_value(t_node *path_start)
 	return (value);
 }
 
-
 void				choose_best_path(t_wrap *wrap, t_graph *graph,
 										t_list *candidate)
 {
@@ -66,10 +70,6 @@ void				choose_best_path(t_wrap *wrap, t_graph *graph,
 	build_path(wrap, graph, best_path);
 }
 
-/*
-** Wrapper
-*/
-
 void				flow_find_wrapper(t_wrap *wrap, t_graph *graph)
 {
 	del_all(&(wrap->bfs_output));
@@ -78,13 +78,6 @@ void				flow_find_wrapper(t_wrap *wrap, t_graph *graph)
 	wrap->bfs_state = NULL;
 	choose_best_path(wrap, graph, wrap->bfs_output);
 }
-
-/*
-** Implementation of Edmonds-Karp [max flow using iterative BFS]
-** - find the next augmenting path using BFS (flow_find_new)
-** - update graph using new path in (flow_update_nodes)
-** - calculate and store length of new/updated paths (flow_update_gates)
-*/
 
 void				flow_create_all(t_wrap *wrap, t_graph *graph)
 {

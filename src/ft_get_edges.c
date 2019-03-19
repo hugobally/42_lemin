@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_edges.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 16:15:43 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 16:16:51 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include "lem_in.h"
 
@@ -34,7 +46,7 @@ void		ft_free_hop(t_node *node)
 }
 
 void		ft_get_edges(char **room_1, char **room_2, char *str,
-t_wrap *wraper)
+							t_wrap *wraper)
 {
 	int len_1;
 	int len_2;
@@ -74,7 +86,7 @@ t_node		*ft_get_hashed(char *str, t_graph *graph)
 }
 
 int			ft_add_edges(char **room_1, char **room_2, t_wrap *wraper,
-t_graph *graph)
+							t_graph *graph)
 {
 	t_node *node;
 	t_node *edge;

@@ -1,25 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_free_all.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 16:10:50 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 16:11:21 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include <stdlib.h>
 #include "lem_in.h"
-#include "stdlib.h"
 #include "libft.h"
-
-/*
-void				ft_free_nodes(t_node *lst)
-{
-	t_list 	*edges;
-	t_list	*tmp;
-
-    edges = lst->edges;
-	//if (lst->name != NULL)
-	ft_memdel((void**)&lst->name);
-	while (edges)
-	{
-		tmp = edges->next;
-		ft_memdel((void**)&edges);
-		edges = tmp;
-	}
-	ft_memdel((void**)&lst);
-}
-*/
 
 void				ft_free_node(t_node *node)
 {
@@ -99,5 +92,14 @@ void				ft_free_wrap(t_wrap *wrap)
 	ft_free_list(wrap->input_start);
 	wrap->input_end = NULL;
 	ft_free_graph(&(wrap->graph));
-	//free les autres
+	if (wrap->bfs_state)
+	{
+		if (wrap->bfs_state->level)
+			del_all(&(wrap->bfs_state->level));
+		if (wrap->bfs_state->frontier)
+			del_all(&(wrap->bfs_state->frontier));
+		wrap->bfs_state->frontier_end = NULL;
+	}
+	if (wrap->bfs_output)
+		del_all(&(wrap->bfs_output));
 }
