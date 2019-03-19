@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   input_getoptions.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 16:14:51 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 16:15:01 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stdlib.h>
 #include "libft.h"
 #include "lem_in.h"
@@ -5,7 +17,7 @@
 static void		exit_usage(void)
 {
 	ft_printf("usage: lem-in [-ev] < input.map\n\n");
-	ft_printf("-e : export data to .js in ./viz/data/\n");
+	ft_printf("-e : export data to .js\n");
 	ft_printf("     to launch vizualization, use 'open viz/index.html'\n");
 	ft_printf("\n");
 	ft_printf("-v : verbose output\n");

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flow_helpers.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/19 15:46:33 by hbally            #+#    #+#             */
+/*   Updated: 2019/03/19 15:47:34 by hbally           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "lem_in.h"
 
-t_node				*hop_get(t_list	*hop_list)
+t_node				*hop_get(t_list *hop_list)
 {
 	if (hop_list)
 		return (((t_hop*)(hop_list->content))->hop_to);
@@ -23,7 +35,7 @@ t_node				*hop_get_flow(t_list *hop_list, int flow)
 	return (NULL);
 }
 
-t_gate_data 		*get_data(t_list *data_list, int flow)
+t_gate_data			*get_data(t_list *data_list, int flow)
 {
 	t_list			*elem;
 	t_gate_data		*data;
