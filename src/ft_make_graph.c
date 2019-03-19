@@ -73,6 +73,7 @@ int			ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
 	t_list	*prec;
 
 	i = 0;
+	flag = 0;
 	input = wraper->input_start;
 	ft_make_tab(size, wraper, graph);
 	while (input != NULL)
