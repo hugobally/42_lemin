@@ -92,7 +92,7 @@ int			ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
 	ft_make_tab(size, wraper, graph);
 	while (input != NULL)
 	{
-		if (i == 0)
+		if (i++ == 0)
 			graph->source_capacity = ft_ants(input->content, wraper, 1);
 		else if (((char *)input->content)[0] == '#')
 			flag = ft_is_comment(wraper, input->content, flag);
@@ -104,7 +104,6 @@ int			ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
 			ft_mid_file(wraper, DONE, &prec);
 		prec = input;
 		input = input->next;
-		i++;
 	}
 	return (0);
 }
