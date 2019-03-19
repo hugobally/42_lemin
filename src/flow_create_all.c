@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 15:48:12 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 15:48:37 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:15:29 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ void				build_path(t_wrap *wrap, t_graph *graph, t_node *start)
 	{
 		del_all(&(wrap->bfs_output));
 		output = &(wrap->bfs_output);
-		node = graph->sink;
-		node->parent = start;
+		node = start;
+		add_start(wrap, (void*)(graph->sink), output);
 		while (node)
 		{
 			add_start(wrap, (void*)node, output);
