@@ -21,11 +21,11 @@ int		ft_count_nodes(char *line, int *nodes)
 	if (count == 2 && tiret == 0)
 	{
 		(*nodes)++;
-		return (0);
+		return (1);
 	}
 	if (tiret == 1)
-		return (1);
-	return (0);
+		return (2);
+	return (1);
 }
 
 int		ft_is_node(char *line, t_wrap *wraper)
@@ -91,8 +91,13 @@ int		ft_read_standard(t_wrap *wraper)
 	start = NULL;
 	while ((ret = get_next_line(0, &line)) > 0)
 	{
-		add_end(wraper, line, &start, &wraper->input_end);
 		if (i == 0)
+		{
+			ft_ants(line, wraper, 1);
+			i++;
+		}
+		add_end(wraper, line, &start, &wraper->input_end);
+		if (i == 1)
 			i = ft_count_nodes(line, &nodes);
 	}
 	wraper->input_start = start;
