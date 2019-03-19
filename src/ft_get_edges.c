@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:15:43 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 16:16:51 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 18:11:34 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,14 +93,14 @@ int			ft_add_edges(char **room_1, char **room_2, t_wrap *wraper,
 
 	if (!(node = ft_get_hashed(*room_1, graph)) || node == NULL)
 	{
-		free(*room_1);
-		free(*room_2);
+		ft_memdel((void**)&room_1);
+		ft_memdel((void**)&room_2);
 		return (0);
 	}
 	if (!(edge = ft_get_hashed(*room_2, graph)) || edge == NULL)
 	{
-		free(*room_1);
-		free(*room_2);
+		ft_memdel((void**)&room_1);
+		ft_memdel((void**)&room_2);
 		return (0);
 	}
 	add_start(wraper, edge, &node->edges);

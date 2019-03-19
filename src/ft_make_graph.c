@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:20:26 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 16:20:41 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 18:12:34 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,17 @@ void		ft_add_link(t_wrap *wraper, char *str, t_graph *graph, t_list **lst)
 
 	ft_get_edges(&room_1, &room_2, str, wraper);
 	if (ft_strcmp(room_1, room_2) == 0)
+	{
+		ft_memdel((void**)&room_1);
+		ft_memdel((void**)&room_2);
 		ft_mid_file(wraper, DONE, lst);
+	}
 	if (!(ft_add_edges(&room_1, &room_2, wraper, graph)))
 		ft_mid_file(wraper, DONE, lst);
 	if (!(ft_add_edges(&room_2, &room_1, wraper, graph)))
 		ft_mid_file(wraper, DONE, lst);
-	free(room_1);
-	free(room_2);
+	ft_memdel((void**)&room_1);
+	ft_memdel((void**)&room_2);
 }
 
 int			ft_make_graph(t_wrap *wraper, int size, t_graph *graph)
