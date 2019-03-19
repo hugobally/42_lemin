@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:08:52 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 16:10:21 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:29:33 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,16 +48,14 @@ void				flow_update_gates(t_wrap *wrap, t_node *source, int flow)
 
 void				flow_update_nodes(t_wrap *wrap, t_list *path, int flow)
 {
-	t_list			*list_elem;
 	t_node			*node;
 	t_node			*next_node;
 	t_hop			*hop;
 
-	list_elem = path;
-	while (list_elem->next)
+	while (path->next)
 	{
-		node = (t_node*)(list_elem->content);
-		next_node = (t_node*)(list_elem->next->content);
+		node = (t_node*)(path->content);
+		next_node = (t_node*)(path->next->content);
 		hop = (t_hop*)ft_memalloc(sizeof(t_hop));
 		hop->flow = flow;
 		if (next_node->hop_data
@@ -71,6 +69,6 @@ void				flow_update_nodes(t_wrap *wrap, t_list *path, int flow)
 			hop->hop_to = next_node;
 			add_start(wrap, (void*)hop, &(node->hop_data));
 		}
-		list_elem = list_elem->next;
+		path = path->next;
 	}
 }
