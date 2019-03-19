@@ -1,13 +1,7 @@
 # |!|WIP|!| lem_in
 
 TODO
-
-Main
-
-* Check on input where there's no valid path between start and end
-* Handle /dev/random
-* GNL
-* del of temp ressources of bfs in collector
+* links to itself
 
 Viz
 
