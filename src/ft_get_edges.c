@@ -4,7 +4,7 @@
 void		ft_mid_file(t_wrap *wraper, int flag, t_list **lst)
 {
 	t_graph graph;
-	t_list 	*tmp;
+	t_list	*tmp;
 
 	graph = wraper->graph;
 	if (graph.source == NULL || graph.sink == NULL)
@@ -98,7 +98,6 @@ t_graph *graph)
 	add_start(wraper, edge, &node->edges);
 	return (1);
 }
-
 
 /*
 void        ft_print_hash_tab(t_graph *graph, int full)
