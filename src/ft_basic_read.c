@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 16:11:31 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 16:13:11 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:50:38 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,10 +48,6 @@ int					ft_ants(char *line, t_wrap *wraper, int ants)
 		collector(wraper, KO);
 	return (x);
 }
-
-/*
-**hash * 33 + c
-*/
 
 unsigned long		hash(unsigned char *str)
 {
