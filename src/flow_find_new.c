@@ -6,7 +6,7 @@
 /*   By: hbally <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 15:49:52 by hbally            #+#    #+#             */
-/*   Updated: 2019/03/19 15:57:57 by hbally           ###   ########.fr       */
+/*   Updated: 2019/03/19 17:29:33 by hbally           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,31 @@
 ** 5. accept
 */
 
-static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
+uint8_t				legal_edge_exception(t_node *parent, t_node *child)
+{
+	if (child->type == START || parent->type == END)
+		return (1);
+	if (parent->type == START && child->type == END)
+	{
+		if (child->parent == NULL)
+		{
+			child->parent = parent;
+			return (0);
+		}
+		else
+			return (1);
+	}
+	return (0);
+}
+
+uint8_t				legal_edge(t_node *parent, t_node *child, int flow)
 {
 	t_list			*parent_hop;
 	t_list			*child_hop;
 
 	parent_hop = parent->hop_data;
 	child_hop = child->hop_data;
-	if (child->last_visited == flow
-			|| child->type == START || parent->type == END)
+	if (child->last_visited == flow || legal_edge_exception(parent, child))
 		return (0);
 	if (parent->residual == flow)
 	{
@@ -53,15 +69,11 @@ static uint8_t		legal_edge(t_node *parent, t_node *child, int flow)
 	return (1);
 }
 
-static void			check_node(t_wrap *wrap, t_node *parent, t_node *child,
+void				update_child(t_wrap *wrap, t_node *parent, t_node *child,
 									int flow)
 {
 	if (child->type == END)
-	{
-		if (parent->type == START)
-			child->last_visited = flow;
 		add_start(wrap, (void*)parent, &(wrap->bfs_output));
-	}
 	else
 	{
 		child->last_visited = flow;
@@ -89,7 +101,7 @@ void				flow_find_new(t_wrap *wrap, int flow, t_node *source)
 				child = (t_node*)(edge->content);
 				if (legal_edge(parent, child, flow))
 				{
-					check_node(wrap, parent, child, flow);
+					update_child(wrap, parent, child, flow);
 					add_start(wrap, child, &(bfs.frontier));
 				}
 				edge = edge->next;
