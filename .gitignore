@@ -53,8 +53,7 @@ dkms.conf
 
 # Custom ignores
 lem-in
-lem_in_test
 *.sw*
-*.map
 graph_data.js
 turns_data.js
+data
