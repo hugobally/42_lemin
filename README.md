@@ -13,7 +13,7 @@ The vizualization was made using d3.js's force layout.
 Usage :
 ```
 make
-./lem-in -e < sample_maps/1_small ; open viz/index.html
+./lem-in -e < sample_maps/2_mid_A ; open viz/index.html
 ```
 
 <img src="http://www.hugobally.me/host/img/lemin2.png" width="100%"></img>
